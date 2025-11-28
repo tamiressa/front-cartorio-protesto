@@ -1,0 +1,260 @@
+/* src/app/globals.css */
+:root {
+  /* Paleta de Cores */
+  --primary-color: #2563eb;       /* Azul principal */
+  --primary-hover: #1d4ed8;
+  --bg-color: #f3f4f6;            /* Fundo cinza claro da tela */
+  --sidebar-bg: #ffffff;          /* Fundo branco da sidebar */
+  --header-bg: #ffffff;           /* Fundo branco do header */
+  --text-main: #1f2937;           /* Cor do texto principal */
+  --text-muted: #6b7280;          /* Cor do texto secundário */
+  --border-color: #e5e7eb;        /* Cor das bordas */
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+}
+
+/* Classes do Layout */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Estilo da Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  position: fixed; /* Fixa na esquerda */
+  height: 100vh;
+}
+
+.sidebar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+.nav-link {
+  display: block;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: var(--text-muted);
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+  background-color: #eff6ff;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* Área Principal (Header + Conteúdo) */
+.main-wrapper {
+  flex: 1;
+  margin-left: 250px; /* Mesma largura da sidebar */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo do Header */
+.header {
+  height: 70px;
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.user-profile {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Estilo do Conteúdo das Páginas */
+.page-content {
+  padding: 30px;
+}
+
+.login-header h2 {
+  margin-bottom: 30px;
+  color: var(--primary-color); /* Fica bonito se usar o azul do botão */
+}
+
+/* Estilo Padrão de Botão */
+.btn-entrar {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  /* Para ocupar a largura toda (bom para Login) */
+  width: 80%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-entrar:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-user {
+   background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s; 
+}
+
+.form-group {
+  margin-bottom: 10px; /* Espaço entre o campo de usuário e o de senha */
+}
+
+/* Estilo do Texto (Label) */
+.form-label {
+  display: block;       /* Força o texto a ficar numa linha própria (em cima do input) */
+  margin-bottom: 8px;   /* Espacinho entre o texto e a caixa de digitar */
+  font-weight: 700;     /* Deixa levemente negrito */
+  color: #374151;       /* Um cinza escuro elegante */
+  font-size: 0.98rem;
+}
+
+/* Garante que o input ocupe 100% do espaço disponível */
+.input-field {
+  width: 100%;
+  padding: 12px;        /* Aumentei um pouco para ficar mais clicável */
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); /* Efeito de brilho ao clicar */
+}
+
+
+/* Container para segurar o botão e o menu juntos */
+.user-menu-container {
+  position: relative; /* Importante para o menu saber onde aparecer */
+}
+
+/* A "janela" flutuante */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;    /* Fica logo abaixo do botão */
+  right: 0;     /* Alinhado à direita */
+  margin-top: 10px; /* Um espacinho para não colar */
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  width: 150px;
+  z-index: 50;  /* Garante que fique por cima de tudo */
+  padding: 8px;
+}
+
+/* O botão de Logout dentro da janela */
+.logout-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  background-color: red;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #ba260c; /* Vermelho bem clarinho ao passar o mouse */
+}
+
+
+/* Estilo do Cartão Branco (Container do Form) */
+.card-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid var(--border-color);
+  max-width: 900px; /* Para não ficar esticado demais em telas gigantes */
+}
+
+/* Título de Seção (ex: Cedente) */
+.section-title {
+  font-size: 1.13rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+/* O Grid Mágico */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* Duas colunas de tamanho igual */
+  gap: 15px; /* Espaço entre as colunas */
+}
+
+/* Classe para forçar um campo a ocupar as 2 colunas */
+.full-width { grid-column: span 12; }
+
+.two-thirds { grid-column: span 8; }
+
+.half-width { grid-column: span 6; }
+
+.third-width { grid-column: span 4; }
+
+.quarter     { grid-column: span 3; }
+
+.fifth       { grid-column: span 2; }
+
+.sixth       { grid-column: span 1; }
+
+
+
+
+/* Responsividade: No celular, vira 1 coluna só */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .full-width {
+    grid-column: span 1;
+  }
+}
