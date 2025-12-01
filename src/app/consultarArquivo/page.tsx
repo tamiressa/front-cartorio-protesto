@@ -1,12 +1,16 @@
-// src/app/enviarTitulo/page.tsx
-import MainLayout from '@/components/layout/MainLayout';
+import ConsultarArquivo from "@/components/form/ConsultarArquivoForm";
 
 export default function EnviarTituloPage() {
   return (
     <div>
       {/* O conteúdo da sua página começa aqui */}
-      <h2>Consultar Arquivo</h2>
-      <p>Página em construção...</p>
+      <h2 style={{ marginBottom: '20px' }}>Consultar Arquivo</h2>
+      <ConsultarArquivo/> <br/>
+
+      <button
+            className="btn-entrar" type="submit"
+            > Consultar 
+          </button>
     </div>
   );
 }

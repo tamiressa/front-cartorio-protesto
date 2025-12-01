@@ -17,6 +17,12 @@ export default function ConsultarTituloPage() {
         <ConsultarCartorioForm/> <br />
 
       </form>
+
+      <button
+        className="btn-entrar" type="submit" style={{ width: "80%" }}
+        > Consultar 
+      </button>
+
     </div>
   );
 }

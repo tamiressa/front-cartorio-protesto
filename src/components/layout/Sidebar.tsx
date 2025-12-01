@@ -12,6 +12,8 @@ export default function Sidebar() {
         <Link href="/consultarTitulo" className="nav-link">Consultar Título</Link>
         <Link href="/consultarArquivo" className="nav-link">Consultar Arquivo</Link>
         <Link href="/movimento" className="nav-link">Movimento Diário</Link>
+        <Link href="/confirmacaoRetorno" className="nav-link">Confirmação Retorno</Link>
+
       </nav>
     </aside>
   );
