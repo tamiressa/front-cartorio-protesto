@@ -1,8 +1,8 @@
 "use client";
-import CedenteForm from "@/components/form/CedenteForm";
-import SacadorForm from "@/components/form/SacadorForm";
-import DevedorForm from "@/components/form/DevedorForm";
-import DividaForm from "@/components/form/DividaForm";
+import CedenteForm from "@/components/form/CadastroCedenteForm";
+import SacadorForm from "@/components/form/CadastroSacadorForm";
+import DevedorForm from "@/components/form/CadastroDevedorForm";
+import DividaForm from "@/components/form/CadastroDividaForm";
 
 
 export default function TituloPage() {
