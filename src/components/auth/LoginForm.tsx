@@ -71,6 +71,7 @@ export default function LoginForm() {
   type="submit"
   disabled={loading}
   className="btn-entrar"
+  style={{ width: "100%" }}
   >
   {loading ? (<> Autenticando... </>) : ( "Entrar")}
 </button>

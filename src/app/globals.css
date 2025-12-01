@@ -111,7 +111,7 @@ body {
   transition: background-color 0.2s;
   
   /* Para ocupar a largura toda (bom para Login) */
-  width: 80%; 
+  width: auto; 
   display: flex;
   justify-content: center;
   align-items: center;
