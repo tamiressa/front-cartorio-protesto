@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     response.cookies.set(JWT_COOKIE_NAME, authResponse.access_token, {
       httpOnly: true,
-      secure: true,      // deixe true em produção (https)
+      secure: process.env.NODE_ENV === 'production',      // deixe true em produção (https)
       sameSite: "lax",
       path: "/",
       maxAge: JWT_COOKIE_MAX_AGE

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 const JWT_COOKIE_NAME = process.env.JWT_COOKIE_NAME ?? "access_token";
 
 // Rotas que exigem login
-const protectedRoutes = ["/dashboard", "/pacientes", "/exames"];
+const protectedRoutes = ["/enviarTitulo", "/enviarRemessa", "/consultarTitulo", "/consultarArquivo", "/movimento", "confirmacaoRetorno"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
