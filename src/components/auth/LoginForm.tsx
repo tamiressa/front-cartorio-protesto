@@ -32,7 +32,7 @@ export default function LoginForm() {
       }
 
       // Sucesso -> redireciona para rota protegida padrão
-      router.push("/enviarTitulo");
+      router.push("/menu");
     } catch (error) {
       console.error(error);
       setErrorMsg("Erro de comunicação com o servidor.");

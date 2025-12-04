@@ -7,10 +7,7 @@ export default function EnviarTituloPage() {
       <h2 style={{ marginBottom: '20px' }}>Consultar Arquivo</h2>
       <ConsultarArquivo/> <br/>
 
-      <button
-            className="btn-entrar" type="submit"
-            > Consultar 
-          </button>
+      
     </div>
   );
 }

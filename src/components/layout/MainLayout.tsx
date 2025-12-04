@@ -1,6 +1,6 @@
 // src/components/layout/MainLayout.tsx
 import React from 'react';
-import Sidebar from './Sidebar';
+
 import Header from './Header';
 
 interface MainLayoutProps {
@@ -10,8 +10,7 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="dashboard-container">
-      {/* Sidebar fixa */}
-      <Sidebar />
+     
       
       {/* Área da direita */}
       <div className="main-wrapper">

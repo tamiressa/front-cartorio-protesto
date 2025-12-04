@@ -9,10 +9,7 @@ export default function ConfirmacaoRetorno() {
           
           <ConfirmarRetorno/> <br/>
 
-          <button
-            className="btn-entrar" type="submit"
-            > Consultar 
-          </button>
+          
     
     </div>
 

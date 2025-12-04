@@ -16,6 +16,11 @@ export default function ConfirmarRetorno(){
                             </label>
                         </div>
 
+                        <button
+                            className="btn-entrar" type="submit"
+                            > Consultar 
+                        </button>
+
                   </div>
             </fieldset>
 

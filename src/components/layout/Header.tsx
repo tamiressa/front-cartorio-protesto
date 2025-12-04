@@ -1,43 +1,54 @@
 // src/components/layout/Header.tsx
-'use client'; // <--- OBRIGATÓRIO: Indica que este componente tem interação
+'use client';
 
 import { useState } from 'react';
-import Link from 'next/link'; // Se o logout for um link, ou use button se for função
+import Link from 'next/link'; // <--- Não esqueça de importar o Link
 
 export default function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
 
-  // Função que inverte: se está aberto fecha, se fechado abre
   const toggleMenu = () => {
     setMenuAberto(!menuAberto);
   };
 
   return (
     <header className="header">
+      
+      {/* 1. Mudamos de <div> para <Link> 
+         2. Mudamos o href para "/menu"
+         3. Removemos 'sidebar-logo' e colocamos estilo direto para alinhar certinho
+      */}
+      <Link 
+        href="/menu" 
+        style={{ 
+          textDecoration: 'none', 
+          fontSize: '1.5rem', 
+          fontWeight: 'bold', 
+          color: 'var(--primary-color)',
+          cursor: 'pointer'
+        }}
+      >
+        CRF-PE
+      </Link>
+
       <h3>Bem-vindo de volta</h3>
 
-      {/* Container que segura o botão e o menu */}
       <div className="user-menu-container">
-        
-        {/* Botão do Usuário (Adicionei onClick) */}
         <button 
           onClick={toggleMenu} 
-          className="btn-user" 
-          style={{ width: 'auto', padding: '8px 16px' }} // Ajuste fino para não ficar gigante
+          className="btn-user" // <--- Verifique se essa classe existe ou use btn-primary
+          style={{ width: 'auto', padding: '8px 16px', cursor: 'pointer' }}
         >
           Usuario Admin
         </button>
 
-        {/* Lógica: Só mostra a div se menuAberto for TRUE */}
         {menuAberto && (
           <div className="dropdown-menu">
-            {/* Aqui você pode por Link ou Button */}
             <Link href="/api/auth/logout" className="logout-btn">
               Sair
             </Link>
           </div>
         )}
-
       </div>
     </header>
   );
