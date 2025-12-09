@@ -1,0 +1,5 @@
+# Executando
+```
+npm run dev
+
+```
