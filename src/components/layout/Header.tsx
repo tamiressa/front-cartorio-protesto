@@ -14,10 +14,6 @@ export default function Header() {
   return (
     <header className="header">
       
-      {/* 1. Mudamos de <div> para <Link> 
-         2. Mudamos o href para "/menu"
-         3. Removemos 'sidebar-logo' e colocamos estilo direto para alinhar certinho
-      */}
       <Link 
         href="/menu" 
         style={{ 

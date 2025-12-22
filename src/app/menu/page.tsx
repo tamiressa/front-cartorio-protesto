@@ -7,6 +7,11 @@ export default function MenuPage() {
   // Lista de botões para facilitar a manutenção
   const menuItems = [
     { 
+      title: "Autenticar", 
+      href: "/pages/autenticar", 
+      icon: "👍" 
+    },
+    { 
       title: "Enviar Título", 
       href: "/pages/enviarTitulo", 
       icon: "📝" 
