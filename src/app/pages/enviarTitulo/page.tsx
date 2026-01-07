@@ -3,14 +3,14 @@ import EnviarTituloForm from "@/components/form/EnviarTituloForm";
 
 export default function TituloPage() {
   return (
-    <section >
+    <div >
       <h2 style={{ marginBottom: '20px' }}>Cadastro de Título</h2>
 
-      <form >
+      <section >
 
         <EnviarTituloForm /> <br />
 
-      </form>
-    </section>
+      </section>
+    </div>
   );
 }

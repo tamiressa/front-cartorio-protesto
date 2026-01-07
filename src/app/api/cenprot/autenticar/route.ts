@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 8
+    maxAge: 60 * 60 * 24
   });
 
   return Response.json({ ok: true, validade: cred.validade });
