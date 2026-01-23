@@ -1,20 +1,33 @@
 "use client";
 
+function getCookie(name: string) {
+  return document.cookie
+    .split("; ")
+    .find(row => row.startsWith(name + "="))
+    ?.split("=")[1];
+}
 
-//function fileToBase64(file: File): Promise<string> {
-  //return new Promise((resolve, reject) => {
-    //const reader = new FileReader();
 
-    //reader.onload = () => {
-      //const result = reader.result as string;
-      //const base64 = result.split(",")[1]; // remove data:...
-      //resolve(base64);
-    //};
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
 
-    //reader.onerror = () => reject(reader.error);
-    //reader.readAsDataURL(file);
-  //});
-//}
+    reader.onload = () => {
+      const result = reader.result as string;
+      const base64 = result.split(",")[1]; // remove data:...
+      resolve(base64);
+    };
+
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+function formatDate(date: FormDataEntryValue | null) {
+  if (!date) return null;
+  const [y, m, d] = String(date).split("-");
+  return `${d}/${m}/${y}`;
+}
 
 
 export default function EnviarTituloForm() {
@@ -25,16 +38,22 @@ export default function EnviarTituloForm() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    const cenprotToken = getCookie("CENPROT_TOKEN");
+
     // =============================
     // Documento ZIP → base64
     // =============================
+    const file = formData.get("divida_extensao") as File;
+    const documentoBase64 = await fileToBase64(file);
 
 
     // =============================
     // Payload
     // =============================
     const payload = {
-      titulo: [{
+      token: cenprotToken,
+      titulo:[
+        {
         cedente: {
           codigo: formData.get("cedente_codigo"),
           nome: formData.get("cedente_nome"),
@@ -60,7 +79,7 @@ export default function EnviarTituloForm() {
           municipio: formData.get("sacador_municipio"),
           uf: formData.get("sacador_uf"),
         },
-        devedor:
+        devedor:[
           {
             principal: formData.get("devedor_principal"),
             nome: formData.get("devedor_nome"),
@@ -73,7 +92,7 @@ export default function EnviarTituloForm() {
             bairro: formData.get("devedor_bairro"),
             municipio: formData.get("devedor_municipio"),
             uf: formData.get("devedor_uf"),
-          }
+          }]
         ,
         divida: {
           especie: formData.get("divida_especie"),
@@ -83,16 +102,17 @@ export default function EnviarTituloForm() {
           saldo: formData.get("divida_saldo"),
           aceite: formData.get("divida_aceite"),
           finsFalimentares: formData.get("divida_fins"),
-          emissao: formData.get("divida_emissao"),
-          vencimento: formData.get("divida_vencimento"),
+          emissao: formatDate(formData.get("divida_emissao")),
+          vencimento: formatDate(formData.get("divida_vencimento")),          
           tipoEndosso: formData.get("divida_endosso"),
           declaracaoPortador: formData.get("divida_declaracao"),
           documento: {
-            extensao: formData.get("divida_extensao"),
-            documentoBase64:formData.get("divida_docbase")
+            extensao: "zip",
+            documentoBase64
           }
         }
-      }]
+      }
+      ]
     };
 
     // =============================
@@ -136,14 +156,17 @@ export default function EnviarTituloForm() {
                 </div>
     
                 <div className="form-group half-width">
-                  <label className="form-label">Tipo de Documento: 1 para CPF, 2 para CNPJ <br />
-                    <input className="input-field"  type="text" name="cedente_documento_tipo" />
+                  <label className="form-label">Tipo de Documento <br />
+                    <select className="input-field" name="cedente_documento_tipo" >
+                      <option value="1" selected>CPF</option>
+                      <option value="2">CNPJ</option>
+                    </select>
                   </label>
                 </div>
     
                 <div className="form-group half-width">
-                  <label className="form-label" >Documento: <br />
-                    <input type="text" name="cedente_documento" className="input-field"       placeholder="000.000.000-00"/>
+                  <label className="form-label" >Documento com pontos e traço: <br />
+                    <input type="text" name="cedente_documento" className="input-field" placeholder="000.000.000-00"/>
                   </label>
                 </div>
     
@@ -411,28 +434,30 @@ export default function EnviarTituloForm() {
 
             <div className="form-group quarter">
               <label className="form-label">Emissão:<br />
-                <input className="input-field" type="text" name="divida_emissao" />
+                <input className="input-field" type="date" name="divida_emissao" />
               </label>
             </div>
 
             <div className="form-group quarter">
               <label className="form-label">Vencimento:<br />
-                <input className="input-field" type="text" name="divida_vencimento" />
+                <input className="input-field" type="date" name="divida_vencimento" />
               </label>
             </div>
 
             <div className="form-group half-width">
               <label className="form-label">Documento (ZIP):<br />
-                <input className="input-field" type="text" name="divida_extensao" />
+                <input type="file"
+                className="input-field"
+                accept=".zip"
+                name="divida_extensao" />
               </label>
             </div>
 
             <div className="form-group half-width">
               <label className="form-label">base 64:<br />
-                <input className="input-field" type="text" name="divida_docbase" />
+                <input type="hidden" name="divida_docbase" id="dividaDocumentoBase64" />
               </label>
             </div>
-
 
           </div>
         </fieldset> <br/> <br/>

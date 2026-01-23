@@ -5,7 +5,10 @@ export default function ConsultarArquivo(){
   
               <div className="form-group half-width">
                 <label className="form-label"> Tipo do Arquivo: <br />
-                  <input className="input-field" name="arquivo_tipo"  type="text" />
+                  <select className="input-field" name="arquivo_tipo">
+                    <option value="CONFIRMACAO">Confirmação</option>
+                    <option value="RETORNO">Retorno</option>
+                  </select>
                 </label>
               </div>
 

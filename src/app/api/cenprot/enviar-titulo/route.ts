@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
     const payload = {
       token: cenprotToken,
-      titulo: [body.titulo]
+      titulo: body.titulo
     };
 
     const resp = await fetch(

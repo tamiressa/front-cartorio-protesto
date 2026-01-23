@@ -1,12 +1,12 @@
 // src/app/enviarTitulo/page.tsx
-import MainLayout from '@/components/layout/MainLayout';
+import MovimentoDiario from "@/components/form/MovimentoDiarioForm";
 
-export default function EnviarTituloPage() {
+export default function MovimentoDiarioPage() {
   return (
     <div>
-      {/* O conteúdo da sua página começa aqui */}
-      <h2>Moviemnto</h2>
-      <p>Página em construção...</p>
+      <h2 style={{ marginBottom: '20px' }}>Movimento Diário</h2>
+
+      <MovimentoDiario/> <br/>
     </div>
   );
 }
