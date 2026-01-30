@@ -9,9 +9,6 @@ export async function POST(req: Request) {
     const appToken = cookieStore.get(JWT_COOKIE_NAME)?.value;
     const cenprotToken = cookieStore.get("CENPROT_TOKEN")?.value;
 
-    // console.log("🍪 APP_TOKEN:", appToken);
-    // console.log("🍪 CENPROT_TOKEN:", cenprotToken);
-
     if (!appToken) {
       return NextResponse.json(
         { message: "Usuário não autenticado no sistema" },
@@ -30,37 +27,39 @@ export async function POST(req: Request) {
 
     const payload = {
       token: cenprotToken,
-      titulo: body.titulo
+      arquivo: body.arquivo
     };
 
     const resp = await fetch(
-      `http://localhost:8000/ProtestoInterface/enviarTitulo`,
+      "http://localhost:8000/ProtestoInterface/ConsultarArquivo",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${appToken}`
+          Authorization: `Bearer ${appToken}`,
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       }
     );
 
+    //  AQUI entra o padrão seguro
     const text = await resp.text();
 
     let data;
     try {
       data = JSON.parse(text);
     } catch {
-      console.error("Resposta não-JSON:", text);
-      throw new Error("Backend retornou erro inválido");
+      console.error("Resposta não-JSON do backend:", text);
+      throw new Error("Backend retornou resposta inválida");
     }
 
-    return NextResponse.json(data, { status: resp.status });
-
-  } catch (err) {
-    console.error(err);
+    return NextResponse.json(data, {
+      status: resp.status,
+    });
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { message: "Erro interno ao enviar título" },
+      { message: "Erro interno ao consultar arquivo" },
       { status: 500 }
     );
   }

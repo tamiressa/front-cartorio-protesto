@@ -1,13 +1,19 @@
+"use client"
 import ConsultarArquivo from "@/components/form/ConsultarArquivoForm";
 
 export default function ConsultarArquivoPage() {
+
+  const handleSuccess = (data: any) => {
+    console.log("Dados recebidos:", data);
+  }
+
   return (
-    <div>
+    <section>
       
       <h2 style={{ marginBottom: '20px' }}>Consultar Arquivo</h2>
-      <ConsultarArquivo/> <br/>
+      <ConsultarArquivo onSuccess={handleSuccess}/>
 
       
-    </div>
-  );
-}
+    </section>
+    );
+  }
