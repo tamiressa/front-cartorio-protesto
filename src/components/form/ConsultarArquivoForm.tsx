@@ -12,10 +12,11 @@ function getCookie(name: string) {
 }
 
 function formatDate(date: FormDataEntryValue | null) {
-  if (!date) return null;
+  if (!date) return "";
   const [y, m, d] = String(date).split("-");
   return `${d}/${m}/${y}`;
 }
+
 
 export default function ConsultarArquivo({ onSuccess }: ConsultarArquivoFormProps) {
 

@@ -52,66 +52,66 @@ export default function EnviarTituloForm() {
     // =============================
     const payload = {
       token: cenprotToken,
-      titulo:[
+      titulo: [
         {
-        cedente: {
-          codigo: formData.get("cedente_codigo"),
-          nome: formData.get("cedente_nome"),
-          documentoTipo: formData.get("cedente_documento_tipo"),
-          documento: formData.get("cedente_documento"),
-          endereco: formData.get("cedente_endereco"),
-          numero: formData.get("cedente_numero"),
-          complemento: formData.get("cedente_complemento"),
-          cep: formData.get("cedente_cep"),
-          bairro: formData.get("cedente_bairro"),
-          municipio: formData.get("cedente_municipio"),
-          uf: formData.get("cedente_uf"),
-        },
-        sacador: {
-          nome: formData.get("sacador_nome"),
-          documentoTipo: formData.get("sacador_documento_tipo"),
-          documento: formData.get("sacador_documento"),
-          endereco: formData.get("sacador_endereco"),
-          numero: formData.get("sacador_numero"),
-          complemento: formData.get("sacador_complemento"),
-          cep: formData.get("sacador_cep"),
-          bairro: formData.get("sacador_bairro"),
-          municipio: formData.get("sacador_municipio"),
-          uf: formData.get("sacador_uf"),
-        },
-        devedor:[
-          {
-            principal: formData.get("devedor_principal"),
-            nome: formData.get("devedor_nome"),
-            documentoTipo: formData.get("devedor_documento_tipo"),
-            documento: formData.get("devedor_documento"),
-            endereco: formData.get("devedor_endereco"),
-            numero: formData.get("devedor_numero"),
-            complemento: formData.get("devedor_complemento"),
-            cep: formData.get("devedor_cep"),
-            bairro: formData.get("devedor_bairro"),
-            municipio: formData.get("devedor_municipio"),
-            uf: formData.get("devedor_uf"),
-          }]
-        ,
-        divida: {
-          especie: formData.get("divida_especie"),
-          numero: formData.get("divida_numero"),
-          nossoNumero: formData.get("divida_nossoNumero"),
-          valor: formData.get("divida_valor"),
-          saldo: formData.get("divida_saldo"),
-          aceite: formData.get("divida_aceite"),
-          finsFalimentares: formData.get("divida_fins"),
-          emissao: formatDate(formData.get("divida_emissao")),
-          vencimento: formatDate(formData.get("divida_vencimento")),          
-          tipoEndosso: formData.get("divida_endosso"),
-          declaracaoPortador: formData.get("divida_declaracao"),
-          documento: {
-            extensao: "zip",
-            documentoBase64
+          cedente: {
+            codigo: "",
+            nome: "CONSELHO REGIONAL DE FARMACIA DO ESTADO DE PERNAMBUCO",
+            documentoTipo: "2",
+            documento: "09822982000171",
+            endereco: "RUA AMELIA",
+            numero: "50",
+            complemento: "SEM COMPLEMENTO",
+            cep: "52020150",
+            bairro: "ESPINHEIRO",
+            municipio: "RECIFE",
+            uf: "PE",
+          },
+          sacador: {
+            nome: "CONSELHO REGIONAL DE FARMACIA DO ESTADO DE PERNAMBUCO",
+            documentoTipo: "2",
+            documento: "09822982000171",
+            endereco: "RUA AMELIA",
+            numero: "50",
+            complemento: "SEM COMPLEMENTO",
+            cep: "52020150",
+            bairro: "ESPINHEIRO",
+            municipio: "RECIFE",
+            uf: "PE",
+          },
+          devedor: [
+            {
+              principal: formData.get("devedor_principal"),
+              nome: formData.get("devedor_nome"),
+              documentoTipo: formData.get("devedor_documento_tipo"),
+              documento: formData.get("devedor_documento"),
+              endereco: formData.get("devedor_endereco"),
+              numero: formData.get("devedor_numero"),
+              complemento: formData.get("devedor_complemento"),
+              cep: formData.get("devedor_cep"),
+              bairro: formData.get("devedor_bairro"),
+              municipio: formData.get("devedor_municipio"),
+              uf: formData.get("devedor_uf"),
+            }]
+          ,
+          divida: {
+            especie: "CDA",
+            numero: formData.get("divida_numero"),
+            nossoNumero: formData.get("divida_nossoNumero"),
+            valor: formData.get("divida_valor"),
+            saldo: formData.get("divida_saldo"),
+            aceite: "N",
+            finsFalimentares: "N",
+            emissao: formatDate(formData.get("divida_emissao")),
+            vencimento: formatDate(formData.get("divida_vencimento")),
+            tipoEndosso: "B",
+            declaracaoPortador: "I",
+            documento: {
+              extensao: "zip",
+              documentoBase64
+            }
           }
         }
-      }
       ]
     };
 
@@ -139,335 +139,346 @@ export default function EnviarTituloForm() {
 
     <form onSubmit={handleSubmit}>
       <fieldset className="card-form">
-              <h3 className="section-title">Dados do Cedente</h3>
-    
-              <div className="form-grid">
+        <h3 className="section-title">Dados do Cedente</h3>
 
-                <div className="form-group half-width">
-                  <label className="form-label" >Código: <br />
-                    <input className="input-field" type="text" name="cedente_codigo" />
-                  </label>
-                </div>
-    
-                <div className="form-group half-width">
-                  <label className="form-label" >Nome: <br />
-                    <input className="input-field" placeholder="Ex: Farmácia Ltda" type="text" name="cedente_nome" />
-                  </label>
-                </div>
-    
-                <div className="form-group half-width">
-                  <label className="form-label">Tipo de Documento <br />
-                    <select className="input-field" name="cedente_documento_tipo" >
-                      <option value="1" selected>CPF</option>
-                      <option value="2">CNPJ</option>
-                    </select>
-                  </label>
-                </div>
-    
-                <div className="form-group half-width">
-                  <label className="form-label" >Documento com pontos e traço: <br />
-                    <input type="text" name="cedente_documento" className="input-field" placeholder="000.000.000-00"/>
-                  </label>
-                </div>
-    
-                <div className="form-group full-width">
-                  <label className="form-label">Endereço: <br />
-                    <input className="input-field" type="text" name="cedente_endereco" placeholder="Rua, Avenida..." />
-                  </label>
-                </div>
-    
-                <div className="form-group fifth ">
-                  <label className="form-label">Número: <br />
-                    <input className="input-field " type="text" name="cedente_numero" />
-                  </label>
-                </div>
-    
-                <div className="form-group half-width">
-                  <label className="form-label">Complemento: <br />
-                    <input className="input-field" type="text" name="cedente_complemento" />
-                  </label>
-                </div>
-    
-                <div className="form-group third-width">
-                  <label className="form-label">CEP:<br />
-                    <input className="input-field" type="text" name="cedente_cep" />
-                  </label>
-                </div>
-    
-                <div className="form-group half-width">
-                  <label className="form-label">Bairro:<br />
-                    <input className="input-field" type="text" name="cedente_bairro" />
-                  </label>
-                </div>
-    
-                <div className="form-group third-width">
-                  <label className="form-label">Município:<br />
-                    <input className="input-field" type="text" name="cedente_municipio" />
-                  </label>
-                </div>
-    
-                <div className="form-group fifth ">
-                  <label className="form-label ">UF:<br />
-                    <input className="input-field" type="text" name="cedente_uf" />
-                  </label>
-                </div>
-    
-                
-    
-              </div>
-      </fieldset><br/>
+        <div className="form-grid">
 
-      <fieldset className="card-form">
-          <h3 className="section-title">Sacador</h3>
-
-          <div className="form-grid">
-
-            <div className="form-group full-width">
-              <label className="form-label">Nome:<br />
-                <input className="input-field" type="text" name="sacador_nome" />
-              </label>
-            </div>
-
-            <div className="form-group half-width">
-              <label className="form-label">Tipo de Documento: 1 para CPF, 2 para CNPJ:<br />
-                <input className="input-field"  type="text" name="sacador_documento_tipo" />
-              </label>
-            </div>
-
-            <div className="form-group half-width">
-              <label className="form-label">Documento:<br />
-                <input className="input-field" placeholder="000.000.000-00" type="text" name="sacador_documento" />
-              </label>
-            </div>
-
-            <div className="form-group full-width">
-              <label className="form-label">Endereço:<br />
-                <input className="input-field" placeholder="Rua, Avenida..." type="text" name="sacador_endereco" />
-              </label>
-            </div>
-
-            <div className="form-group fifth">
-              <label className="form-label">Número:<br />
-                <input className="input-field" type="text" name="sacador_numero" />
-              </label>
+          <div className="form-group half-width">
+            <label className="form-label" >Código: <br />
+              <input className="input-field" type="text" name="cedente_codigo" disabled/>
+            </label>
           </div>
 
           <div className="form-group half-width">
-            <label className="form-label">Complemento:<br />
-              <input className="input-field" type="text" name="sacador_complemento" />
+            <label className="form-label" >Nome: <br />
+              <input className="input-field" placeholder="CONSELHO REGIONAL DE FARMACIA DO ESTADO DE PERNAMBUCO" 
+              type="text" name="cedente_nome" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Tipo de Documento <br />
+              <select className="input-field" name="cedente_documento_tipo" disabled>
+                <option value="2" selected>CNPJ</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label" >Documento: <br />
+              <input type="text" name="cedente_documento" className="input-field" placeholder="09.822.982/0001-71" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group full-width">
+            <label className="form-label">Endereço: <br />
+              <input className="input-field" type="text" name="cedente_endereco" placeholder="Rua Amélia" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group fifth ">
+            <label className="form-label">Número: <br />
+              <input className="input-field " type="text" name="cedente_numero" placeholder="50" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Complemento: <br />
+              <input className="input-field" type="text" name="cedente_complemento" disabled/>
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">CEP:<br />
-              <input className="input-field" type="text" name="sacador_cep" />
+              <input className="input-field" type="text" name="cedente_cep" placeholder="52020-150" disabled/>
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Bairro:<br />
-              <input className="input-field" type="text" name="sacador_bairro" />
+              <input className="input-field" type="text" name="cedente_bairro" placeholder="Espinheiro" disabled/>
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">Município:<br />
-              <input className="input-field" type="text" name="sacador_municipio" />
+              <input className="input-field" type="text" name="cedente_municipio" placeholder="Recife" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group fifth ">
+            <label className="form-label ">UF:<br />
+              <input className="input-field" type="text" name="cedente_uf" placeholder="PE" disabled/>
+            </label>
+          </div>
+
+
+
+        </div>
+      </fieldset><br />
+
+      <fieldset className="card-form">
+        <h3 className="section-title">Sacador</h3>
+
+        <div className="form-grid">
+
+          <div className="form-group full-width">
+            <label className="form-label">Nome:<br />
+              <input className="input-field" type="text" name="sacador_nome" placeholder="CONSELHO REGIONAL DE FARMACIA DO ESTADO DE PERNAMBUCO" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Tipo de Documento:<br />
+              <select className="input-field" name="sacador_documento_tipo" disabled>
+                <option value="1" selected>CPF</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Documento:<br />
+              <input className="input-field" placeholder="09.822.982/0001-71" type="text" name="sacador_documento" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group full-width">
+            <label className="form-label">Endereço:<br />
+              <input className="input-field" placeholder="Rua Amélia" type="text" name="sacador_endereco" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group fifth">
+            <label className="form-label">Número:<br />
+              <input className="input-field" type="text" name="sacador_numero" placeholder="50" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Complemento:<br />
+              <input className="input-field" type="text" name="sacador_complemento" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group third-width">
+            <label className="form-label">CEP:<br />
+              <input className="input-field" type="text" name="sacador_cep" placeholder="52020-150" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Bairro:<br />
+              <input className="input-field" type="text" name="sacador_bairro" placeholder="Espinheiro" disabled/>
+            </label>
+          </div>
+
+          <div className="form-group third-width">
+            <label className="form-label">Município:<br />
+              <input className="input-field" type="text" name="sacador_municipio" placeholder="Recife" disabled/>
             </label>
           </div>
 
           <div className="form-group fifth" >
             <label className="form-label ">UF:<br />
-              <input className="input-field" type="text" name="sacador_uf" />
+              <input className="input-field" type="text" name="sacador_uf" placeholder="PE" disabled/>
             </label>
           </div>
 
-          </div>
-        </fieldset> <br/>
+        </div>
+      </fieldset> <br />
 
       <fieldset className="card-form">
-          <h3 className="section-title">Devedor (Principal) </h3>
+        <h3 className="section-title">Devedor (Principal) </h3>
 
-          <div className="form-grid"> 
+        <div className="form-grid">
 
 
-            <div className="form-group half-width">
-              <label className="form-label">Principal:<br />
-                <select name="devedor_principal" className="input-field" defaultValue="S">
-                  <option value="S">Sim</option>
-                  <option value="N">Não</option>
-                </select>
-              </label>
+          <div className="form-group half-width">
+            <label className="form-label">Principal:<br />
+              <select name="devedor_principal" className="input-field" defaultValue="S" >
+                <option value="S">Sim</option>
+                <option value="N">Não</option>
+              </select>
+            </label>
 
-            </div>
+          </div>
 
-            <div className="form-group half-width">
-              <label className="form-label">Nome:<br />
-                <input type="text" name="devedor_nome" className="input-field" placeholder="Ex: Farmácia LTDA"/>
-              </label>
-            </div>
+          <div className="form-group half-width">
+            <label className="form-label">Nome:<br />
+              <input type="text" name="devedor_nome" className="input-field" placeholder="Ex: Farmácia LTDA" />
+            </label>
+          </div>
 
-            <div className="form-group half-width">
-              <label className="form-label">Tipo de Documento:<br />
-                <input className="input-field"  type="text" name="devedor_documento_tipo" />
-              </label>
-            </div>
-          
-            <div className="form-group half-width">
-              <label className="form-label">Documento: <br />
-                <input className="input-field"
+          <div className="form-group half-width">
+            <label className="form-label">Tipo de Documento <br />
+              <select className="input-field" name="devedor_documento_tipo" >
+                <option value="1" selected>CPF</option>
+                <option value="2">CNPJ</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Documento: <br />
+              <input className="input-field"
                 placeholder="000.000.000-00" type="text" name="devedor_documento" />
-              </label>
-            </div>
-
-            <div className="form-group full-width">
-              <label className="form-label">Endereço:<br />
-                <input className="input-field" placeholder="Rua, Avenida..." type="text" name="devedor_endereco" />
-              </label>
-            </div>
-
-            <div className="form-group fifth">
-              <label className="form-label">Número:<br />
-                <input className="input-field" type="text" name="devedor_numero" />
-              </label>
-            </div>
-
-            <div className="form-group half-width">
-              <label className="form-label">Complemento:<br />
-                <input className="input-field" type="text" name="devedor_complemento" />
-              </label>
-            </div>
-
-            <div className="form-group third-width">
-              <label className="form-label">CEP:<br />
-                <input className="input-field" type="text" name="devedor_cep" />
-              </label>
-            </div>
-
-            <div className="form-group half-width">
-              <label className="form-label">Bairro:<br />
-                <input className="input-field" type="text" name="devedor_bairro" />
-              </label>
-            </div>
-
-            <div className="form-group third-width">
-              <label className="form-label">Município:<br />
-                <input className="input-field" type="text" name="devedor_municipio" />
-              </label>
-            </div>
-
-            <div className="form-group fifth">
-              <label className="form-label ">UF:<br />
-                <input className="input-field" type="text" name="devedor_uf" />
-              </label>
-            </div>
-
+            </label>
           </div>
-        </fieldset> <br/>
+
+          <div className="form-group full-width">
+            <label className="form-label">Endereço:<br />
+              <input className="input-field" placeholder="Rua, Avenida..." type="text" name="devedor_endereco" />
+            </label>
+          </div>
+
+          <div className="form-group fifth">
+            <label className="form-label">Número:<br />
+              <input className="input-field" type="text" name="devedor_numero" />
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Complemento:<br />
+              <input className="input-field" type="text" name="devedor_complemento" />
+            </label>
+          </div>
+
+          <div className="form-group third-width">
+            <label className="form-label">CEP:<br />
+              <input className="input-field" type="text" name="devedor_cep" />
+            </label>
+          </div>
+
+          <div className="form-group half-width">
+            <label className="form-label">Bairro:<br />
+              <input className="input-field" type="text" name="devedor_bairro" />
+            </label>
+          </div>
+
+          <div className="form-group third-width">
+            <label className="form-label">Município:<br />
+              <input className="input-field" type="text" name="devedor_municipio" />
+            </label>
+          </div>
+
+          <div className="form-group fifth">
+            <label className="form-label ">UF:<br />
+              <input className="input-field" type="text" name="devedor_uf" />
+            </label>
+          </div>
+
+        </div>
+      </fieldset> <br />
 
 
       <fieldset className="card-form">
-          <h3 className="section-title">Dados da Dívida / Título</h3>
+        <h3 className="section-title">Dados da Dívida / Título</h3>
 
-          <div className="form-grid">
+        <div className="form-grid">
 
-            <div className="form-group half-width">
-              <label className="form-label">Espécie:<br />
-                <input className="input-field" type="text" name="divida_especie" />
-              </label>
-            </div>
+          <div className="form-group half-width">
+            <label className="form-label">Espécie:<br />
+              <select className="input-field" name="divida_especie" disabled>
+                <option value="CDA" selected > Certidão de Dívida Ativa (CDA)</option>
+              </select>
+            </label>
+          </div>
 
-            <div className="form-group half-width">
-              <label className="form-label">Número:<br />
-                <input className="input-field" type="text" name="divida_numero" />
-              </label>
-            </div>
+          <div className="form-group half-width">
+            <label className="form-label">Número:<br />
+              <input className="input-field" type="text" name="divida_numero" />
+            </label>
+          </div>
 
-            <div className="form-group full-width">
-              <label className="form-label">Nosso Número:<br />
-                <input className="input-field" type="text" name="divida_nossoNumero" />
-              </label>
-            </div>
+          <div className="form-group half-width">
+            <label className="form-label">Nosso Número:<br />
+              <input className="input-field" type="text" name="divida_nossoNumero" />
+            </label>
+          </div>
 
-            <div className="form-group quarter">
+          <div className="form-group quarter">
             <label className="form-label">Valor:<br />
               <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_valor" />
             </label>
-            </div>
+          </div>
 
-            <div className="form-group quarter">
-              <label className="form-label">Saldo:<br />
-                <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_saldo" />
-              </label>
-            </div>
+          <div className="form-group quarter">
+            <label className="form-label">Saldo:<br />
+              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_saldo" />
+            </label>
+          </div>
 
-            <div className="form-group quarter">
-              <label className="form-label">Tipo Endosso:<br />
-                <input className="input-field" type="text" name="divida_endosso" />
-              </label>
-            </div>
+          <div className="form-group half-width">
+            <label className="form-label" >Tipo Endosso: <br />
+              <select className="input-field" name="divida_endosso" disabled >
+                <option value="B" selected >B — Endosso em Branco</option>
+              </select>
 
-            <div className="form-group half-width">
-              <label className="form-label">aceite:<br />
-                <select name="divida_aceite" className="input-field" defaultValue="N">
-                  <option value="S">Sim</option>
-                  <option value="N">Não</option>
-                </select>
-              </label>
-            </div>
+            </label>
+          </div>
 
-            <div className="form-group half-width">
-              <label className="form-label">fins Falimentares:<br />
-                <select name="divida_fins" className="input-field" defaultValue="N">
-                  <option value="S">Sim</option>
-                  <option value="N">Não</option>
-                </select>
-              </label>
-            </div>
+          <div className="form-group quarter">
+            <label className="form-label">Aceite:<br />
+              <select name="divida_aceite" className="input-field" defaultValue="N" disabled>
+                <option value="S">Sim</option>
+                <option value="N">Não</option>
+              </select>
+            </label>
+          </div>
 
-            <div className="form-group quarter">
-              <label className="form-label">Declaração Portador<br />
-                <input className="input-field" type="text" name="divida_declaracao" />
-              </label>
-            </div>
+          <div className="form-group quarter">
+            <label className="form-label">Fins Falimentares:<br />
+              <select name="divida_fins" className="input-field" defaultValue="N" disabled>
+                <option value="S">Sim</option>
+                <option value="N">Não</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="form-group full-width">
+            <label className="form-label">Declaração Portador<br />
+              <select className="input-field" name="divida_declaracao" disabled>
+                <option value="D"> D — DMI ou DSI: Declara estar de posse da documentação comprobatória </option>
+                <option value="A"> A — Títulos com apresentação física do documento original </option>
+                <option value="G"> G — Dispensa de documentação</option>
+                <option value="I" selected> I — Envio de imagem do documento</option>
+                <option value="C"> C — CCB ou CBI: Declara estar de posse da documentação comprobatória </option>
+              </select>
+            </label>
+          </div>
 
 
-            <div className="form-group quarter">
-              <label className="form-label">Emissão:<br />
-                <input className="input-field" type="date" name="divida_emissao" />
-              </label>
-            </div>
+          <div className="form-group quarter">
+            <label className="form-label">Emissão:<br />
+              <input className="input-field" type="date" name="divida_emissao" />
+            </label>
+          </div>
 
-            <div className="form-group quarter">
-              <label className="form-label">Vencimento:<br />
-                <input className="input-field" type="date" name="divida_vencimento" />
-              </label>
-            </div>
+          <div className="form-group quarter">
+            <label className="form-label">Vencimento:<br />
+              <input className="input-field" type="date" name="divida_vencimento" />
+            </label>
+          </div>
 
-            <div className="form-group half-width">
-              <label className="form-label">Documento (ZIP):<br />
-                <input type="file"
+          <div className="form-group half-width">
+            <label className="form-label">Documento (ZIP):<br />
+              <input type="file"
                 className="input-field"
                 accept=".zip"
                 name="divida_extensao" />
-              </label>
-            </div>
-
-            <div className="form-group half-width">
-              <label className="form-label">base 64:<br />
-                <input type="hidden" name="divida_docbase" id="dividaDocumentoBase64" />
-              </label>
-            </div>
-
+            </label>
           </div>
-        </fieldset> <br/> <br/>
 
-        <button type="submit" className="btn-entrar" style={{ width: "30%" }}>Enviar</button>
-        
-      </form>
 
-      
-      
-    
-);
+        </div>
+      </fieldset> <br /> <br />
+
+      <button type="submit" className="btn-entrar" style={{ width: "30%" }}>Enviar</button>
+
+    </form>
+
+
+
+
+  );
 }

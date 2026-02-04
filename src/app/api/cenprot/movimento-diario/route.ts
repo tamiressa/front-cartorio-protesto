@@ -4,8 +4,8 @@ import { JWT_COOKIE_NAME } from "@/services/authService";
 
 export async function POST(req: Request) {
   try {
-    const cookieStore = cookies();
 
+    const cookieStore = cookies();
     const appToken = cookieStore.get(JWT_COOKIE_NAME)?.value;
     const cenprotToken = cookieStore.get("CENPROT_TOKEN")?.value;
 
@@ -27,53 +27,33 @@ export async function POST(req: Request) {
 
     const payload = {
       token: cenprotToken,
-      arquivo: body.arquivo,
+      movimento: body.movimento
     };
 
+
     const resp = await fetch(
-      "http://localhost:8000/ProtestoInterface/ConsultarArquivo",
+      `http://localhost:8000/ProtestoInterface/movimentoDiario`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${appToken}`,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload)
       }
     );
 
-    const text = await resp.text();
+    const data = await resp.json();
 
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      console.error("Resposta não-JSON do backend:", text);
-      throw new Error("Backend retornou resposta inválida");
+    if (!resp.ok) {
+      return NextResponse.json(data, { status: resp.status });
     }
 
-    // 🔁 ADAPTER DE CONTRATO
-    if (data.status === "business_error") {
-      return NextResponse.json(
-        {
-          arquivo: [],
-          message: data.message || "Nenhum arquivo encontrado",
-        },
-        { status: 200 }
-      );
-    }
+    return NextResponse.json(data, { status: 200 });
 
-    return NextResponse.json(
-      {
-        arquivo: data.payload ?? [],
-        message: null,
-      },
-      { status: 200 }
-    );
   } catch (error) {
-    console.error(error);
     return NextResponse.json(
-      { message: "Erro interno ao consultar arquivo" },
+      { message: "Erro interno ao consultar movimento diário" },
       { status: 500 }
     );
   }
