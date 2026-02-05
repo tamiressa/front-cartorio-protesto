@@ -4,7 +4,7 @@ import MainLayout from '@/components/layout/MainLayout';
 
 export default function MenuPage() {
   
-  // Lista de botões para facilitar a manutenção
+  
   const menuItems = [
     { 
       title: "Autenticar", 
@@ -19,7 +19,8 @@ export default function MenuPage() {
     { 
       title: "Envia Remessa ou Anuência", 
       href: "/pages/enviaRemessa", 
-      icon: "📦" 
+      icon: "📦",
+      disabled: true
     },
     { 
       title: "Consultar Título", 
@@ -37,25 +38,28 @@ export default function MenuPage() {
       icon: "📊" 
     },
     { 
-      title: "Confirmação Retorno", 
-      href: "/pages/confirmacaoRetorno", 
+      title: "Operação Título", 
+      href: "/pages/operacaoTitulo", 
       icon: "✅" 
     },
   ];
 
   return (
-    <div>
-      <h2 style={{ marginBottom: '10px' }}>Menu Principal</h2>
-      <p style={{ color: '#666', marginBottom: '30px' }}>Selecione uma opção abaixo:</p>
-
-      <div className="menu-grid">
-        {menuItems.map((item, index) => (
-          <Link key={index} href={item.href} className="menu-card">
-            <span className="menu-icon">{item.icon}</span>
-            <h3>{item.title}</h3>
-          </Link>
-        ))}
+    <div className="menu-grid">
+  {menuItems.map((item, index) =>
+    item.disabled ? (
+      <div key={index} className="menu-card menu-card-disabled">
+        <span className="menu-icon">{item.icon}</span>
+        <h3>{item.title}</h3>
       </div>
-    </div>
+    ) : (
+      <Link key={index} href={item.href} className="menu-card">
+        <span className="menu-icon">{item.icon}</span>
+        <h3>{item.title}</h3>
+      </Link>
+    )
+  )}
+</div>
+
   );
 }
