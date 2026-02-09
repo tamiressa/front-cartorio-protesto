@@ -305,14 +305,15 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label">Nome:<br />
-              <input type="text" name="devedor_nome" className="input-field" placeholder="Ex: Farmácia LTDA" />
+              <input type="text" name="devedor_nome" className="input-field" placeholder="Ex: Farmácia LTDA" required/>
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Tipo de Documento <br />
               <select className="input-field" name="devedor_documento_tipo" >
-                <option value="1" selected>CPF</option>
+                <option selected>-- Selecione uma opção --</option>
+                <option value="1" >CPF</option>
                 <option value="2">CNPJ</option>
               </select>
             </label>
@@ -321,19 +322,19 @@ export default function EnviarTituloForm() {
           <div className="form-group half-width">
             <label className="form-label">Documento: <br />
               <input className="input-field"
-                placeholder="000.000.000-00" type="text" name="devedor_documento" />
+                placeholder="000.000.000-00" type="text" name="devedor_documento" required/>
             </label>
           </div>
 
           <div className="form-group full-width">
             <label className="form-label">Endereço:<br />
-              <input className="input-field" placeholder="Rua, Avenida..." type="text" name="devedor_endereco" />
+              <input className="input-field" placeholder="Rua, Avenida..." type="text" name="devedor_endereco" required/>
             </label>
           </div>
 
           <div className="form-group fifth">
             <label className="form-label">Número:<br />
-              <input className="input-field" type="text" name="devedor_numero" />
+              <input className="input-field" type="text" name="devedor_numero" required/>
             </label>
           </div>
 
@@ -345,25 +346,25 @@ export default function EnviarTituloForm() {
 
           <div className="form-group third-width">
             <label className="form-label">CEP:<br />
-              <input className="input-field" type="text" name="devedor_cep" />
+              <input className="input-field" type="text" name="devedor_cep" required/>
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Bairro:<br />
-              <input className="input-field" type="text" name="devedor_bairro" />
+              <input className="input-field" type="text" name="devedor_bairro" required/>
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">Município:<br />
-              <input className="input-field" type="text" name="devedor_municipio" />
+              <input className="input-field" type="text" name="devedor_municipio" required/>
             </label>
           </div>
 
           <div className="form-group fifth">
             <label className="form-label ">UF:<br />
-              <input className="input-field" type="text" name="devedor_uf" />
+              <input className="input-field" type="text" name="devedor_uf" required/>
             </label>
           </div>
 
@@ -386,25 +387,25 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label">Número:<br />
-              <input className="input-field" type="text" name="divida_numero" />
+              <input className="input-field" type="text" name="divida_numero" required/>
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Nosso Número:<br />
-              <input className="input-field" type="text" name="divida_nossoNumero" />
+              <input className="input-field" type="text" name="divida_nossoNumero" required/>
             </label>
           </div>
 
           <div className="form-group quarter">
             <label className="form-label">Valor:<br />
-              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_valor" />
+              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_valor" required/>
             </label>
           </div>
 
           <div className="form-group quarter">
             <label className="form-label">Saldo:<br />
-              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_saldo" />
+              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_saldo" required/>
             </label>
           </div>
 
@@ -450,13 +451,13 @@ export default function EnviarTituloForm() {
 
           <div className="form-group quarter">
             <label className="form-label">Emissão:<br />
-              <input className="input-field" type="date" name="divida_emissao" />
+              <input className="input-field" type="date" name="divida_emissao" required/>
             </label>
           </div>
 
           <div className="form-group quarter">
             <label className="form-label">Vencimento:<br />
-              <input className="input-field" type="date" name="divida_vencimento" />
+              <input className="input-field" type="date" name="divida_vencimento" required/>
             </label>
           </div>
 
@@ -465,7 +466,8 @@ export default function EnviarTituloForm() {
               <input type="file"
                 className="input-field"
                 accept=".zip"
-                name="divida_extensao" />
+                name="divida_extensao" 
+                required/>
             </label>
           </div>
 

@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+
+
 function getCookie(name: string) {
     return document.cookie
         .split("; ")
@@ -15,10 +18,12 @@ function formatDate(date: FormDataEntryValue | null) {
 
 
 
-export default function operacaoTituloForm() {
+export default function OperacaoTituloForm() {
+    const [mensagem, setMensagem] = useState<string | null>(null);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
 
         const form = e.currentTarget;
         const formData = new FormData(form);
@@ -65,8 +70,32 @@ export default function operacaoTituloForm() {
             return;
         }
 
+        const operacao = formData.get("operacao_titulo");
+        const numero = formData.get("numero_titulo");
+        const nossoNumero = formData.get("nosso_numero_titulo");
+
+        let textoOperacao = "";
+
+        switch (operacao) {
+            case "REMOCAO":
+                textoOperacao = "foi removida";
+                break;
+            case "DESISTENCIA":
+                textoOperacao = "teve desistência";
+                break;
+            case "CANCELAMENTO":
+                textoOperacao = "foi cancelada";
+                break;
+        }
+
+        setMensagem(
+            `Dívida número ${numero} e nosso número ${nossoNumero} ${textoOperacao}.`
+        );
+
         form.reset();
-        alert("Operação realizada com sucesso!");
+
+
+
     }
 
 
@@ -81,7 +110,7 @@ export default function operacaoTituloForm() {
 
                     <div className="form-group half-width">
                         <label className="form-label"> Autoriza: <br />
-                            <select className="input-field" name="autoriza_titulo">
+                            <select className="input-field" name="autoriza_titulo" required>
                                 <option value="">Selecione uma opção</option>
                                 <option value="S" >SIM</option>
                                 <option value="N" >NÃO</option>
@@ -92,7 +121,7 @@ export default function operacaoTituloForm() {
 
                     <div className="form-group half-width">
                         <label className="form-label"> Operação: <br />
-                            <select className="input-field" name="operacao_titulo">
+                            <select className="input-field" name="operacao_titulo" required>
                                 <option value="">Selecione uma opção</option>
                                 <option value="REMOCAO">REMOÇÃO</option>
                                 <option value="DESISTENCIA" >DESISTÊNCIA</option>
@@ -103,7 +132,7 @@ export default function operacaoTituloForm() {
 
                     <div className="form-group full-width ">
                         <label className="form-label">Justificativa: <br />
-                            <input className="input-field " type="text" name="justificativa_titulo" />
+                            <input className="input-field " type="text" name="justificativa_titulo" required/>
                         </label>
                     </div>
 
@@ -116,7 +145,7 @@ export default function operacaoTituloForm() {
 
                     <div className="form-group half-width">
                         <label className="form-label"> Documento do devedor: <br />
-                            <input className="input-field" name="documento_titulo" type="text" />
+                            <input className="input-field" name="documento_titulo" type="text" required/>
                         </label>
                     </div>
                 </div>
@@ -130,19 +159,19 @@ export default function operacaoTituloForm() {
 
                     <div className="form-group third-width">
                         <label className="form-label"> Número: <br />
-                            <input className="input-field" name="numero_titulo" type="text" />
+                            <input className="input-field" name="numero_titulo" type="text" required/>
                         </label>
                     </div>
 
                     <div className="form-group third-width">
                         <label className="form-label"> Nosso Número: <br />
-                            <input className="input-field" name="nosso_numero_titulo" type="text" />
+                            <input className="input-field" name="nosso_numero_titulo" type="text" required/>
                         </label>
                     </div>
 
                     <div className="form-group third-width">
                         <label className="form-label">Vencimento:<br />
-                            <input className="input-field" type="date" name="vencimento_titulo" />
+                            <input className="input-field" type="date" name="vencimento_titulo" required/>
                         </label>
                     </div>
 
@@ -182,8 +211,15 @@ export default function operacaoTituloForm() {
 
             <button
                 className="btn-entrar" type="submit" style={{ width: "30%" }}
-            > Consultar
+            > Enviar
             </button>
+
+            {mensagem && (
+                <p style={{ marginTop: "16px", color: "#16a34a", fontWeight: 500 }}>
+                    {mensagem}
+                </p>
+            )}
+
         </form>
     )
 }

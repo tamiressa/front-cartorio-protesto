@@ -69,7 +69,7 @@ export default function ConsultarArquivo({ onSuccess }: ConsultarArquivoFormProp
           <div className="form-group half-width">
             <label className="form-label">
               Data do Arquivo:<br />
-              <input className="input-field" type="date" name="arquivo_data" />
+              <input className="input-field" type="date" name="arquivo_data" required/>
             </label>
           </div>
 

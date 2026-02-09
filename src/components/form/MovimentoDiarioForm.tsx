@@ -67,7 +67,7 @@ export default function MovimentoDiario({ onSuccess }: MovimentoDiarioFormProps)
                     <div className="form-group full-width">
                         <label className="form-label">Data
                             do Arquivo:<br />
-                            <input className="input-field" type="date" name="movimento_data" />
+                            <input className="input-field" type="date" name="movimento_data" required/>
                         </label>
                     </div>
 

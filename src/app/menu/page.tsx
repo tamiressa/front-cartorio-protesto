@@ -40,7 +40,7 @@ export default function MenuPage() {
     { 
       title: "Operação Título", 
       href: "/pages/operacaoTitulo", 
-      icon: "✅" 
+      icon: "🔨" 
     },
   ];
 

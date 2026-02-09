@@ -83,7 +83,7 @@ export default function ConsultarTituloForm({
 
           <div className="form-group third-width">
             <label className="form-label"> Documento: <br />
-              <input className="input-field" name="devedor_documento" type="text" />
+              <input className="input-field" name="devedor_documento" type="text" required/>
             </label>
           </div>
         </div>
@@ -95,19 +95,19 @@ export default function ConsultarTituloForm({
 
           <div className="form-group third-width">
             <label className="form-label"> Número: <br />
-              <input className="input-field" name="divida_numero" type="text" />
+              <input className="input-field" name="divida_numero" type="text" required/>
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label"> Nosso Número: <br />
-              <input className="input-field" name="divida_nosso_numero" type="text" />
+              <input className="input-field" name="divida_nosso_numero" type="text" required/>
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">Vencimento:<br />
-              <input className="input-field" type="date" name="divida_vencimento" />
+              <input className="input-field" type="date" name="divida_vencimento" required/>
             </label>
           </div>
 
