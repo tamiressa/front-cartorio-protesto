@@ -41,7 +41,7 @@ export default function Header() {
         </span>
 
         <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>
-          v0.1.14
+          v0.1.16
         </span>
       </Link>
 

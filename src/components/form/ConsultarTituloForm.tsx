@@ -1,4 +1,6 @@
 "use client";
+import { validateCenprotResponse } from "@/utils/cenprot";
+
 
 type ConsultarTituloFormProps = {
   onSuccess: (data: any) => void;
@@ -64,13 +66,20 @@ export default function ConsultarTituloForm({
     });
 
     const data = await resp.json();
-    if (!resp.ok) {
-      alert(data.message || "Erro ao consultar título");
-      return;
+    try {
+      
+      validateCenprotResponse(data);
+
+      alert("Título(s) abaixo!");
+      
+
+    } catch (err: any) {
+      alert(err.message);
     }
 
     onSuccess(data);
     form.reset();
+
   }
 
 

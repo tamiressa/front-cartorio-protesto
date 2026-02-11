@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { validateCenprotResponse } from "@/utils/cenprot";
+
 
 
 function getCookie(name: string) {
@@ -65,8 +67,10 @@ export default function OperacaoTituloForm() {
         const text = await resp.text();
         const data = text ? JSON.parse(text) : null;
 
-        if (!resp.ok) {
-            alert(data?.message || "Erro operação título");
+        try {
+            validateCenprotResponse(data);
+        } catch (err: any) {
+            alert(err.message || "Erro operação título");
             return;
         }
 
@@ -132,7 +136,7 @@ export default function OperacaoTituloForm() {
 
                     <div className="form-group full-width ">
                         <label className="form-label">Justificativa: <br />
-                            <input className="input-field " type="text" name="justificativa_titulo" required/>
+                            <input className="input-field " type="text" name="justificativa_titulo" required />
                         </label>
                     </div>
 
@@ -145,7 +149,7 @@ export default function OperacaoTituloForm() {
 
                     <div className="form-group half-width">
                         <label className="form-label"> Documento do devedor: <br />
-                            <input className="input-field" name="documento_titulo" type="text" required/>
+                            <input className="input-field" name="documento_titulo" type="text" required />
                         </label>
                     </div>
                 </div>
@@ -159,19 +163,19 @@ export default function OperacaoTituloForm() {
 
                     <div className="form-group third-width">
                         <label className="form-label"> Número: <br />
-                            <input className="input-field" name="numero_titulo" type="text" required/>
+                            <input className="input-field" name="numero_titulo" type="text" required />
                         </label>
                     </div>
 
                     <div className="form-group third-width">
                         <label className="form-label"> Nosso Número: <br />
-                            <input className="input-field" name="nosso_numero_titulo" type="text" required/>
+                            <input className="input-field" name="nosso_numero_titulo" type="text" required />
                         </label>
                     </div>
 
                     <div className="form-group third-width">
                         <label className="form-label">Vencimento:<br />
-                            <input className="input-field" type="date" name="vencimento_titulo" required/>
+                            <input className="input-field" type="date" name="vencimento_titulo" required />
                         </label>
                     </div>
 

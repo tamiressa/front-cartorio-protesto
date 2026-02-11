@@ -1,4 +1,8 @@
 "use client";
+import { useState } from "react";
+import { validateCenprotResponse } from "@/utils/cenprot";
+
+
 
 function getCookie(name: string) {
   return document.cookie
@@ -29,8 +33,31 @@ function formatDate(date: FormDataEntryValue | null) {
   return `${d}/${m}/${y}`;
 }
 
+function maskCPF(value: string): string {
+  return value
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+    .slice(0, 14);
+}
+
+function maskCNPJ(value: string): string {
+  return value
+    .replace(/\D/g, '')
+    .replace(/^(\d{2})(\d)/, '$1.$2')
+    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/\.(\d{3})(\d)/, '.$1/$2')
+    .replace(/(\d{4})(\d)/, '$1-$2')
+    .slice(0, 18);
+}
+
+
+
+
 
 export default function EnviarTituloForm() {
+  const [tipoDocumento, setTipoDocumento] = useState<"1" | "2" | "">("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -126,13 +153,15 @@ export default function EnviarTituloForm() {
 
     const data = await resp.json();
 
-    if (!resp.ok) {
-      alert(data.message || "Erro ao enviar título");
-      return;
-    }
+    try {
+      validateCenprotResponse(data);
 
-    alert("Título enviado com sucesso!");
-    form.reset();
+      alert("Título enviado com sucesso!");
+      form.reset();
+
+    } catch (err: any) {
+      alert(err.message);
+    }
   }
 
   return (
@@ -145,14 +174,14 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label" >Código: <br />
-              <input className="input-field" type="text" name="cedente_codigo" disabled/>
+              <input className="input-field" type="text" name="cedente_codigo" disabled />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label" >Nome: <br />
-              <input className="input-field" placeholder="CONSELHO REGIONAL DE FARMACIA DO ESTADO DE PERNAMBUCO" 
-              type="text" name="cedente_nome" disabled/>
+              <input className="input-field" placeholder="CONSELHO REGIONAL DE FARMACIA DO ESTADO DE PERNAMBUCO"
+                type="text" name="cedente_nome" disabled />
             </label>
           </div>
 
@@ -166,49 +195,49 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label" >Documento: <br />
-              <input type="text" name="cedente_documento" className="input-field" placeholder="09.822.982/0001-71" disabled/>
+              <input type="text" name="cedente_documento" className="input-field" placeholder="09.822.982/0001-71" disabled />
             </label>
           </div>
 
           <div className="form-group full-width">
             <label className="form-label">Endereço: <br />
-              <input className="input-field" type="text" name="cedente_endereco" placeholder="Rua Amélia" disabled/>
+              <input className="input-field" type="text" name="cedente_endereco" placeholder="Rua Amélia" disabled />
             </label>
           </div>
 
           <div className="form-group fifth ">
             <label className="form-label">Número: <br />
-              <input className="input-field " type="text" name="cedente_numero" placeholder="50" disabled/>
+              <input className="input-field " type="text" name="cedente_numero" placeholder="50" disabled />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Complemento: <br />
-              <input className="input-field" type="text" name="cedente_complemento" disabled/>
+              <input className="input-field" type="text" name="cedente_complemento" disabled />
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">CEP:<br />
-              <input className="input-field" type="text" name="cedente_cep" placeholder="52020-150" disabled/>
+              <input className="input-field" type="text" name="cedente_cep" placeholder="52020-150" disabled />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Bairro:<br />
-              <input className="input-field" type="text" name="cedente_bairro" placeholder="Espinheiro" disabled/>
+              <input className="input-field" type="text" name="cedente_bairro" placeholder="Espinheiro" disabled />
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">Município:<br />
-              <input className="input-field" type="text" name="cedente_municipio" placeholder="Recife" disabled/>
+              <input className="input-field" type="text" name="cedente_municipio" placeholder="Recife" disabled />
             </label>
           </div>
 
           <div className="form-group fifth ">
             <label className="form-label ">UF:<br />
-              <input className="input-field" type="text" name="cedente_uf" placeholder="PE" disabled/>
+              <input className="input-field" type="text" name="cedente_uf" placeholder="PE" disabled />
             </label>
           </div>
 
@@ -224,7 +253,7 @@ export default function EnviarTituloForm() {
 
           <div className="form-group full-width">
             <label className="form-label">Nome:<br />
-              <input className="input-field" type="text" name="sacador_nome" placeholder="CONSELHO REGIONAL DE FARMACIA DO ESTADO DE PERNAMBUCO" disabled/>
+              <input className="input-field" type="text" name="sacador_nome" placeholder="CONSELHO REGIONAL DE FARMACIA DO ESTADO DE PERNAMBUCO" disabled />
             </label>
           </div>
 
@@ -238,49 +267,49 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label">Documento:<br />
-              <input className="input-field" placeholder="09.822.982/0001-71" type="text" name="sacador_documento" disabled/>
+              <input className="input-field" placeholder="09.822.982/0001-71" type="text" name="sacador_documento" disabled />
             </label>
           </div>
 
           <div className="form-group full-width">
             <label className="form-label">Endereço:<br />
-              <input className="input-field" placeholder="Rua Amélia" type="text" name="sacador_endereco" disabled/>
+              <input className="input-field" placeholder="Rua Amélia" type="text" name="sacador_endereco" disabled />
             </label>
           </div>
 
           <div className="form-group fifth">
             <label className="form-label">Número:<br />
-              <input className="input-field" type="text" name="sacador_numero" placeholder="50" disabled/>
+              <input className="input-field" type="text" name="sacador_numero" placeholder="50" disabled />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Complemento:<br />
-              <input className="input-field" type="text" name="sacador_complemento" disabled/>
+              <input className="input-field" type="text" name="sacador_complemento" disabled />
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">CEP:<br />
-              <input className="input-field" type="text" name="sacador_cep" placeholder="52020-150" disabled/>
+              <input className="input-field" type="text" name="sacador_cep" placeholder="52020-150" disabled />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Bairro:<br />
-              <input className="input-field" type="text" name="sacador_bairro" placeholder="Espinheiro" disabled/>
+              <input className="input-field" type="text" name="sacador_bairro" placeholder="Espinheiro" disabled />
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">Município:<br />
-              <input className="input-field" type="text" name="sacador_municipio" placeholder="Recife" disabled/>
+              <input className="input-field" type="text" name="sacador_municipio" placeholder="Recife" disabled />
             </label>
           </div>
 
           <div className="form-group fifth" >
             <label className="form-label ">UF:<br />
-              <input className="input-field" type="text" name="sacador_uf" placeholder="PE" disabled/>
+              <input className="input-field" type="text" name="sacador_uf" placeholder="PE" disabled />
             </label>
           </div>
 
@@ -305,15 +334,23 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label">Nome:<br />
-              <input type="text" name="devedor_nome" className="input-field" placeholder="Ex: Farmácia LTDA" required/>
+              <input type="text" name="devedor_nome" className="input-field" placeholder="Ex: Farmácia LTDA" required />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Tipo de Documento <br />
-              <select className="input-field" name="devedor_documento_tipo" >
-                <option selected>-- Selecione uma opção --</option>
-                <option value="1" >CPF</option>
+              <select
+                className="input-field"
+                name="devedor_documento_tipo"
+                required
+                value={tipoDocumento}
+                onChange={(e) => {
+                  setTipoDocumento(e.target.value as "1" | "2" | "");
+                }}
+              >
+                <option value="">-- Selecione uma opção --</option>
+                <option value="1">CPF</option>
                 <option value="2">CNPJ</option>
               </select>
             </label>
@@ -321,20 +358,40 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label">Documento: <br />
-              <input className="input-field"
-                placeholder="000.000.000-00" type="text" name="devedor_documento" required/>
+              <input
+                className="input-field"
+                type="text"
+                name="devedor_documento"
+                required
+                disabled={!tipoDocumento}
+                placeholder={
+                  tipoDocumento === "2"
+                    ? "00.000.000/0000-00"
+                    : "000.000.000-00"
+                }
+                maxLength={tipoDocumento === "2" ? 18 : 14}
+                onChange={(e) => {
+                  if (tipoDocumento === "1") {
+                    e.currentTarget.value = maskCPF(e.currentTarget.value);
+                  }
+
+                  if (tipoDocumento === "2") {
+                    e.currentTarget.value = maskCNPJ(e.currentTarget.value);
+                  }
+                }}
+              />
             </label>
           </div>
 
           <div className="form-group full-width">
             <label className="form-label">Endereço:<br />
-              <input className="input-field" placeholder="Rua, Avenida..." type="text" name="devedor_endereco" required/>
+              <input className="input-field" placeholder="Rua, Avenida..." type="text" name="devedor_endereco" required />
             </label>
           </div>
 
           <div className="form-group fifth">
             <label className="form-label">Número:<br />
-              <input className="input-field" type="text" name="devedor_numero" required/>
+              <input className="input-field" type="text" name="devedor_numero" required />
             </label>
           </div>
 
@@ -346,25 +403,25 @@ export default function EnviarTituloForm() {
 
           <div className="form-group third-width">
             <label className="form-label">CEP:<br />
-              <input className="input-field" type="text" name="devedor_cep" required/>
+              <input className="input-field" type="text" name="devedor_cep" required />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Bairro:<br />
-              <input className="input-field" type="text" name="devedor_bairro" required/>
+              <input className="input-field" type="text" name="devedor_bairro" required />
             </label>
           </div>
 
           <div className="form-group third-width">
             <label className="form-label">Município:<br />
-              <input className="input-field" type="text" name="devedor_municipio" required/>
+              <input className="input-field" type="text" name="devedor_municipio" required />
             </label>
           </div>
 
           <div className="form-group fifth">
             <label className="form-label ">UF:<br />
-              <input className="input-field" type="text" name="devedor_uf" required/>
+              <input className="input-field" type="text" name="devedor_uf" required />
             </label>
           </div>
 
@@ -387,25 +444,25 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label">Número:<br />
-              <input className="input-field" type="text" name="divida_numero" required/>
+              <input className="input-field" type="text" name="divida_numero" required />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Nosso Número:<br />
-              <input className="input-field" type="text" name="divida_nossoNumero" required/>
+              <input className="input-field" type="text" name="divida_nossoNumero" required />
             </label>
           </div>
 
           <div className="form-group quarter">
             <label className="form-label">Valor:<br />
-              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_valor" required/>
+              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_valor" required />
             </label>
           </div>
 
           <div className="form-group quarter">
             <label className="form-label">Saldo:<br />
-              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_saldo" required/>
+              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_saldo" required />
             </label>
           </div>
 
@@ -451,13 +508,13 @@ export default function EnviarTituloForm() {
 
           <div className="form-group quarter">
             <label className="form-label">Emissão:<br />
-              <input className="input-field" type="date" name="divida_emissao" required/>
+              <input className="input-field" type="date" name="divida_emissao" required />
             </label>
           </div>
 
           <div className="form-group quarter">
             <label className="form-label">Vencimento:<br />
-              <input className="input-field" type="date" name="divida_vencimento" required/>
+              <input className="input-field" type="date" name="divida_vencimento" required />
             </label>
           </div>
 
@@ -466,8 +523,8 @@ export default function EnviarTituloForm() {
               <input type="file"
                 className="input-field"
                 accept=".zip"
-                name="divida_extensao" 
-                required/>
+                name="divida_extensao"
+                required />
             </label>
           </div>
 

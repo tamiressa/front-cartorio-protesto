@@ -1,10 +1,13 @@
 "use client";
 import { useState } from "react";
+import { validateCenprotResponse } from "@/utils/cenprot";
+
 
 export default function Autenticar() {
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
   const [validade, setValidade] = useState<string | null>(null);
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,14 +26,27 @@ export default function Autenticar() {
     });
 
     const data = await resp.json();
+    console.log("DATA COMPLETA:", data);
+    console.log("PAYLOAD:", data.payload);
 
-    if (resp.ok) {
-      setValidade(data.validade);
-      alert("Autenticado no cartório com sucesso");
-    } else {
-      alert("Erro na autenticação: " + data.detail);
+
+
+    // 🚨 PRIMEIRO: valida erro de negócio (mesmo com 200)
+    try {
+      console.log("AUTH STATUS:", data.payload?.credenciais?.resposta?.status);
+
+      validateCenprotResponse(data);
+    } catch (err: any) {
+      alert(err.message);
+      return;
     }
+
+
+    // ✅ Sucesso real
+    setValidade(data.validade);
+
   }
+
 
   return (
     <form onSubmit={handleSubmit}>

@@ -1,4 +1,5 @@
 "use client";
+import { validateCenprotResponse } from "@/utils/cenprot";
 
 type MovimentoDiarioFormProps = {
     onSuccess: (data: any) => void;
@@ -42,8 +43,10 @@ export default function MovimentoDiario({ onSuccess }: MovimentoDiarioFormProps)
         });
 
         const data = await resp.json();
-        if (!resp.ok) {
-            alert(data.message || "Erro ao consultar movimento diario");
+        try {
+            validateCenprotResponse(data); // 🔥 AQUI
+        } catch (err: any) {
+            alert(err.message || "Erro ao consultar movimento diário");
             return;
         }
 
@@ -67,7 +70,7 @@ export default function MovimentoDiario({ onSuccess }: MovimentoDiarioFormProps)
                     <div className="form-group full-width">
                         <label className="form-label">Data
                             do Arquivo:<br />
-                            <input className="input-field" type="date" name="movimento_data" required/>
+                            <input className="input-field" type="date" name="movimento_data" required />
                         </label>
                     </div>
 
