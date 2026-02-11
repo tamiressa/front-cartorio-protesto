@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { validateCenprotResponse } from "@/utils/cenprot";
+import { estados } from "@/components/chamadas/estados";
 
 
 
@@ -52,6 +53,19 @@ function maskCNPJ(value: string): string {
     .slice(0, 18);
 }
 
+function maskCEP(value: string): string {
+  return value
+    .replace(/\D/g, '')
+    .replace(/(\d{5})(\d)/, '$1-$2')
+    .slice(0, 9);
+}
+
+function maskNumero(value: string): string {
+  return value
+    .replace(/\D/g, '')                // só números
+    .replace(/(\d{9})(\d)/, '$1-$2')   // hífen depois do 9º dígito
+    .slice(0, 12);                     // limita em 000000000-00
+}
 
 
 
@@ -403,7 +417,12 @@ export default function EnviarTituloForm() {
 
           <div className="form-group third-width">
             <label className="form-label">CEP:<br />
-              <input className="input-field" type="text" name="devedor_cep" required />
+              <input className="input-field" type="text" name="devedor_cep"
+                maxLength={9}
+                onChange={(e) => {
+                  e.target.value = maskCEP(e.target.value);
+                }}
+                required />
             </label>
           </div>
 
@@ -421,7 +440,18 @@ export default function EnviarTituloForm() {
 
           <div className="form-group fifth">
             <label className="form-label ">UF:<br />
-              <input className="input-field" type="text" name="devedor_uf" required />
+              <select
+                className="input-field"
+                name="devedor_uf"
+                required
+              >
+                <option value="">Selecione</option>
+                {estados.map((uf) => (
+                  <option key={uf} value={uf}>
+                    {uf}
+                  </option>
+                ))}
+              </select>
             </label>
           </div>
 
@@ -444,13 +474,26 @@ export default function EnviarTituloForm() {
 
           <div className="form-group half-width">
             <label className="form-label">Número:<br />
-              <input className="input-field" type="text" name="divida_numero" required />
+              <input className="input-field" type="text" name="divida_numero"
+                maxLength={12}
+                onChange={(e) => {
+                  e.target.value = maskNumero(
+                    e.target.value.replace(/\D/g, '')
+                  );
+                }}
+
+                required />
             </label>
           </div>
 
           <div className="form-group half-width">
             <label className="form-label">Nosso Número:<br />
-              <input className="input-field" type="text" name="divida_nossoNumero" required />
+              <input className="input-field" type="text" name="divida_nossoNumero" maxLength={17}
+                onInput={(e) => {
+                  const input = e.currentTarget;
+                  input.value = input.value.replace(/\D/g, '');
+                }}
+                required />
             </label>
           </div>
 
