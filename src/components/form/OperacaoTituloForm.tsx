@@ -18,9 +18,37 @@ function formatDate(date: FormDataEntryValue | null) {
     return `${d}/${m}/${y}`;
 }
 
+function maskCPF(value: string): string {
+    return value
+        .replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+        .slice(0, 14);
+}
+
+function maskCNPJ(value: string): string {
+    return value
+        .replace(/\D/g, '')
+        .replace(/^(\d{2})(\d)/, '$1.$2')
+        .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+        .replace(/\.(\d{3})(\d)/, '.$1/$2')
+        .replace(/(\d{4})(\d)/, '$1-$2')
+        .slice(0, 18);
+}
+
+
+function maskNumero(value: string): string {
+    return value
+        .replace(/\D/g, '')
+        .replace(/(\d{9})(\d)/, '$1-$2')
+        .slice(0, 12);
+}
+
 
 
 export default function OperacaoTituloForm() {
+    const [tipoDocumento, setTipoDocumento] = useState<"1" | "2" | "">("");
     const [mensagem, setMensagem] = useState<string | null>(null);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -147,9 +175,47 @@ export default function OperacaoTituloForm() {
                 <h3 className="section-title">Devedor</h3>
                 <div className="form-grid">
 
-                    <div className="form-group half-width">
+                    <div className="form-group third-width">
+                        <label className="form-label">Tipo de Documento <br />
+                            <select
+                                className="input-field"
+                                name="devedor_documento_tipo"
+                                required
+                                value={tipoDocumento}
+                                onChange={(e) => {
+                                    setTipoDocumento(e.target.value as "1" | "2" | "");
+                                }}
+                            >
+                                <option value="">-- Selecione uma opção --</option>
+                                <option value="1">CPF</option>
+                                <option value="2">CNPJ</option>
+                            </select>
+                        </label>
+                    </div>
+
+
+
+                    <div className="form-group third-width">
                         <label className="form-label"> Documento do devedor: <br />
-                            <input className="input-field" name="documento_titulo" type="text" required />
+                            <input className="input-field" name="documento_titulo" type="text" required
+                                disabled={!tipoDocumento}
+                                placeholder={
+                                    tipoDocumento === "2"
+                                        ? "00.000.000/0000-00"
+                                        : "000.000.000-00"
+                                }
+                                maxLength={tipoDocumento === "2" ? 18 : 14}
+                                onChange={(e) => {
+                                    if (tipoDocumento === "1") {
+                                        e.currentTarget.value = maskCPF(e.currentTarget.value);
+                                    }
+
+                                    if (tipoDocumento === "2") {
+                                        e.currentTarget.value = maskCNPJ(e.currentTarget.value);
+                                    }
+                                }}
+
+                            />
                         </label>
                     </div>
                 </div>
@@ -163,13 +229,26 @@ export default function OperacaoTituloForm() {
 
                     <div className="form-group third-width">
                         <label className="form-label"> Número: <br />
-                            <input className="input-field" name="numero_titulo" type="text" required />
+                            <input className="input-field" name="numero_titulo" type="text" required
+
+                                maxLength={12}
+                                onChange={(e) => {
+                                    e.target.value = maskNumero(
+                                        e.target.value.replace(/\D/g, '')
+                                    );
+                                }} />
                         </label>
                     </div>
 
                     <div className="form-group third-width">
                         <label className="form-label"> Nosso Número: <br />
-                            <input className="input-field" name="nosso_numero_titulo" type="text" required />
+                            <input className="input-field" name="nosso_numero_titulo" type="text" required
+
+                                maxLength={17}
+                                onInput={(e) => {
+                                    const input = e.currentTarget;
+                                    input.value = input.value.replace(/\D/g, '');
+                                }} />
                         </label>
                     </div>
 

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
+import { appVersion } from "@/utils/version";
 
 export default function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
@@ -24,7 +25,7 @@ export default function Header() {
   return (
     <header className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem' }}>
 
-      {/* O Link CRF-PE sempre existe, mas o destino muda conforme a rota */}
+
       <Link
         href={rotasPrivadas ? "/menu" : "/"}
         style={{
@@ -36,12 +37,27 @@ export default function Header() {
           color: 'var(--primary-color)',
         }}
       >
-        <span style={{ fontSize: '1.6rem', fontWeight: 700 }}>
-          CRF-PE: ATHENA
+        <span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'baseline',
+            fontSize: '1.5rem',
+            fontWeight: 700,
+          }}
+        >
+          <img
+            src="/logo_h.jpeg"
+            alt="CRF-PE"
+            style={{
+              height: '1em',
+              width: 'auto',
+              verticalAlign: 'baseline',
+            }}
+          /> ­ ­­ATHENA
         </span>
 
-        <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>
-          v0.1.17
+        <span style={{ fontSize: '0.80rem', opacity: 0.7 }}>
+          v{appVersion}
         </span>
       </Link>
 

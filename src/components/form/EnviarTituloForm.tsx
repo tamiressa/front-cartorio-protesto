@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { validateCenprotResponse } from "@/utils/cenprot";
-import { estados } from "@/components/chamadas/estados";
+import { estados } from "@/utils/estados";
 
 
 
@@ -62,9 +62,9 @@ function maskCEP(value: string): string {
 
 function maskNumero(value: string): string {
   return value
-    .replace(/\D/g, '')                // só números
-    .replace(/(\d{9})(\d)/, '$1-$2')   // hífen depois do 9º dígito
-    .slice(0, 12);                     // limita em 000000000-00
+    .replace(/\D/g, '')                
+    .replace(/(\d{9})(\d)/, '$1-$2')   
+    .slice(0, 12);                     
 }
 
 
