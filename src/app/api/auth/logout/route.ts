@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
   // 3. Remove o cookie nessa resposta
   response.cookies.set(JWT_COOKIE_NAME, "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // Importante para funcionar local
+    secure: process.env.COOKIE_SECURE === "true", // Importante para funcionar local
     sameSite: "lax",
     path: "/",
     maxAge: 0 // Isso faz o cookie expirar imediatamente (deletar)

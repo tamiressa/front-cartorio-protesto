@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     };
 
     const resp = await fetch(
-      "http://localhost:8000/ProtestoInterface/consultarTitulo",
+      `${process.env.FASTAPI_BASE_URL}/ProtestoInterface/consultarTitulo`,
       {
         method: "POST",
         headers: {

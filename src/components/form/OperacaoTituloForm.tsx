@@ -155,9 +155,9 @@ export default function OperacaoTituloForm() {
                         <label className="form-label"> Operação: <br />
                             <select className="input-field" name="operacao_titulo" required>
                                 <option value="">Selecione uma opção</option>
-                                <option value="REMOCAO">REMOÇÃO</option>
+                                <option value="REMOCAO">REMOÇÃO (Erro de cadastro)</option>
                                 <option value="DESISTENCIA" >DESISTÊNCIA</option>
-                                <option value="CANCELAMENTO" >CANCELAMENTO</option>
+                                <option value="CANCELAMENTO" >CANCELAMENTO (Pagamento extrajudicial)</option>
                             </select>
                         </label>
                     </div>

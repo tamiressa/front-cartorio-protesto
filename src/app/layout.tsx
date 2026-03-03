@@ -3,8 +3,8 @@ import MainLayout from "@/components/layout/MainLayout";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Portal Corporativo",
-  description: "Boilerplate Next.js + FastAPI JWT"
+  title: "CRFPE ATHENA",
+  description: "Middleware de Protesto"
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {

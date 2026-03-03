@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     };
 
     const resp = await fetch(
-      `http://localhost:8000/ProtestoInterface/enviarTitulo`,
+      `${process.env.FASTAPI_BASE_URL}/ProtestoInterface/enviarTitulo`,
       {
         method: "POST",
         headers: {

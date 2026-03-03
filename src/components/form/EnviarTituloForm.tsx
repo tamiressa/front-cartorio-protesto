@@ -62,12 +62,20 @@ function maskCEP(value: string): string {
 
 function maskNumero(value: string): string {
   return value
-    .replace(/\D/g, '')                
-    .replace(/(\d{9})(\d)/, '$1-$2')   
-    .slice(0, 12);                     
+    .replace(/\D/g, '')
+    .replace(/(\d{9})(\d)/, '$1-$2')
+    .slice(0, 12);
 }
 
-
+function maskCurrencyBR(value: string): string {
+  const numbers = value.replace(/\D/g, '');
+  if (!numbers) return '';
+  const formatted = (Number(numbers) / 100)
+    .toFixed(2)
+    .replace('.', ',')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return formatted;
+}
 
 
 export default function EnviarTituloForm() {
@@ -498,14 +506,21 @@ export default function EnviarTituloForm() {
           </div>
 
           <div className="form-group quarter">
-            <label className="form-label">Valor:<br />
-              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_valor" required />
+            <label className="form-label">Valor R$:<br />
+              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_valor"
+                onChange={(e) => {
+                  e.currentTarget.value = maskCurrencyBR(e.currentTarget.value);
+                }} required />
             </label>
           </div>
 
           <div className="form-group quarter">
-            <label className="form-label">Saldo:<br />
-              <input className="input-field" step="0.01" placeholder="0,00" type="text" name="divida_saldo" required />
+            <label className="form-label">Saldo R$:<br />
+              <input className="input-field" placeholder="0,00" type="text" name="divida_saldo"
+                onChange={(e) => {
+                  e.currentTarget.value = maskCurrencyBR(e.currentTarget.value);
+                }}
+                required />
             </label>
           </div>
 

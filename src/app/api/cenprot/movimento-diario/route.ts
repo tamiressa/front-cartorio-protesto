@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 
 
     const resp = await fetch(
-      `http://localhost:8000/ProtestoInterface/movimentoDiario`,
+      `${process.env.FASTAPI_BASE_URL}/ProtestoInterface/movimentoDiario`,
       {
         method: "POST",
         headers: {

@@ -14,6 +14,7 @@ export default function Autenticar() {
 
     const resp = await fetch("/api/cenprot/autenticar", {
       method: "POST",
+      credentials: "include",   // ← ESSENCIAL
       headers: {
         "Content-Type": "application/json"
       },
@@ -63,6 +64,7 @@ export default function Autenticar() {
                 type="text"
                 value={login}
                 onChange={(e) => setLogin(e.target.value)}
+                required
               />
             </label>
           </div>
@@ -77,6 +79,7 @@ export default function Autenticar() {
                 placeholder="****"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
+                required
               />
             </label>
           </div>

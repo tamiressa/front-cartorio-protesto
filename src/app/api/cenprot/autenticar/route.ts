@@ -2,10 +2,28 @@ import { cookies } from "next/headers";
 
 const JWT_COOKIE_NAME = process.env.JWT_COOKIE_NAME ?? "access_token";
 
+function timestamp() {
+  const now = new Date();
+
+  const pad = (n: number, z = 2) => n.toString().padStart(z, "0");
+
+  return (
+    now.getFullYear() + "/" +
+    pad(now.getMonth() + 1) + "/" +
+    pad(now.getDate()) + " " +
+    pad(now.getHours()) + ":" +
+    pad(now.getMinutes()) + ":" +
+    pad(now.getSeconds()) + ":" +
+    pad(now.getMilliseconds(), 3)
+  );
+}
+
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const jwt = cookies().get(JWT_COOKIE_NAME)?.value;
+  const jwt = cookies().get(JWT_COOKIE_NAME)?.value;    
+
+  console.log(`[${timestamp()}] JWT dentro do container:`, jwt);
 
   if (!jwt) {
     return new Response(
@@ -15,7 +33,7 @@ export async function POST(req: Request) {
   }
 
   const resp = await fetch(
-    "http://localhost:8000/ProtestoInterface/autenticar",
+    `${process.env.FASTAPI_BASE_URL}/ProtestoInterface/autenticar`,
     {
       method: "POST",
       headers: {
@@ -28,12 +46,12 @@ export async function POST(req: Request) {
 
   const data = await resp.json();
 
-  // ❌ erro HTTP real
+  // erro HTTP real
   if (!resp.ok) {
     return new Response(JSON.stringify(data), { status: resp.status });
   }
 
-  // 🚨 ERRO DE NEGÓCIO DA CENPROT (AQUI ESTAVA O BUG)
+  // ERRO DE NEGÓCIO DA CENPROT (AQUI ESTAVA O BUG)
   const resposta = data?.payload?.credenciais?.resposta;
 
   if (resposta?.status === false) {
@@ -50,7 +68,7 @@ export async function POST(req: Request) {
 
   cookies().set("CENPROT_TOKEN", cred.token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.COOKIE_SECURE === "true",
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24,

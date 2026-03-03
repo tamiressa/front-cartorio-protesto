@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     };
 
     const resp = await fetch(
-      "http://localhost:8000/ProtestoInterface/ConsultarArquivo",
+      `${process.env.FASTAPI_BASE_URL}/ProtestoInterface/ConsultarArquivo`,
       {
         method: "POST",
         headers: {

@@ -1,7 +1,7 @@
 // services/authService.ts
 import { fastapiFetch } from "./http/apiClient";
 
-const LOGIN_PATH = process.env.FASTAPI_LOGIN_PATH ?? "/auth/login";
+const LOGIN_PATH = "/auth/login";
 const JWT_COOKIE_NAME = process.env.JWT_COOKIE_NAME ?? "access_token";
 const JWT_COOKIE_MAX_AGE = Number(process.env.JWT_COOKIE_MAX_AGE ?? "3600");
 
