@@ -6,18 +6,25 @@ import ResultadoMovimentoDiario from "@/components/resultados/ResultadoMovimento
 
 export default function MovimentoDiarioPage() {
   const [resultado, setResultado] = useState<any>(null);
+  const [statusSelecionado, setStatusSelecionado] = useState<string>("");
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
       <h2 style={{ marginBottom: "20px" }}>Movimento Diário</h2>
 
       <section>
-        <MovimentoDiarioForm onSuccess={setResultado} />
+        <MovimentoDiarioForm
+          onSuccess={setResultado}
+          onStatusChange={setStatusSelecionado}
+        />
       </section>
 
       {resultado && (
         <section style={{ marginTop: "30px" }}>
-          <ResultadoMovimentoDiario data={resultado} />
+          <ResultadoMovimentoDiario
+            data={resultado}
+            status={statusSelecionado}
+          />
 
           <details
             style={{

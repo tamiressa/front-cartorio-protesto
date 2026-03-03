@@ -3,6 +3,7 @@ import { validateCenprotResponse } from "@/utils/cenprot";
 
 type MovimentoDiarioFormProps = {
     onSuccess: (data: any) => void;
+    onStatusChange?: (status: string) => void; // 👈 opcional
 };
 
 function getCookie(name: string) {
@@ -18,7 +19,7 @@ function formatDate(date: FormDataEntryValue | null) {
     return `${d}/${m}/${y}`;
 }
 
-export default function MovimentoDiario({ onSuccess }: MovimentoDiarioFormProps) {
+export default function MovimentoDiario({ onSuccess, onStatusChange }: MovimentoDiarioFormProps) {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -26,13 +27,15 @@ export default function MovimentoDiario({ onSuccess }: MovimentoDiarioFormProps)
         const form = e.currentTarget;
         const formData = new FormData(form);
         const cenprotToken = getCookie("CENPROT_TOKEN");
+        const statusSelecionado = formData.get("movimento_status");
+
 
         const payload = {
             token: cenprotToken,
             movimento: {
                 data: formatDate(formData.get("movimento_data")),
                 completa: null,
-                status: null
+                status: statusSelecionado || null,
             }
         };
 
@@ -67,10 +70,35 @@ export default function MovimentoDiario({ onSuccess }: MovimentoDiarioFormProps)
             <fieldset className="card-form">
                 <div className="form-grid">
 
-                    <div className="form-group full-width">
+                    <div className="form-group half-width">
                         <label className="form-label">Data
                             do Arquivo:<br />
                             <input className="input-field" type="date" name="movimento_data" required />
+                        </label>
+                    </div>
+
+                    <div className="form-group half-width">
+                        <label className="form-label">Status do Arquivo:<br />
+                            <select className="input-field" name="movimento_status" defaultValue=""
+                                onChange={(e) => onStatusChange?.(e.target.value)}>
+
+                                <option value="" disabled>
+                                    Selecione
+                                </option>
+                                <option value="INEXISTENTE">INEXISTENTE</option>
+                                <option value="COLETADO">COLETADO</option>
+                                <option value="GERADO">GERADO</option>
+                                <option value="AGENDADO">AGENDADO</option>
+                                <option value="ENVIADO">ENVIADO</option>
+                                <option value="CONFIRMADO">CONFIRMADO</option>
+                                <option value="DEVOLVIDO">DEVOLVIDO</option>
+                                <option value="CANCELADO">CANCELADO</option>
+                                <option value="PAGO">PAGO</option>
+                                <option value="PROTESTADO">PROTESTADO</option>
+                                <option value="RETIRADO">RETIRADO</option>
+                                <option value="SUSTADO">SUSTADO</option>
+                                <option value="SUSPENSO">SUSPENSO</option>
+                            </select>
                         </label>
                     </div>
 
