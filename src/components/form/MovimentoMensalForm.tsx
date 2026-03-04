@@ -1,9 +1,9 @@
 "use client";
 import { validateCenprotResponse } from "@/utils/cenprot";
 
-type MovimentoDiarioFormProps = {
+type MovimentoMensalFormProps = {
     onSuccess: (data: any) => void;
-    onStatusChange?: (status: string) => void; 
+    onStatusChange?: (status: string) => void;
 };
 
 function getCookie(name: string) {
@@ -13,13 +13,13 @@ function getCookie(name: string) {
         ?.split("=")[1];
 }
 
-function formatDate(date: FormDataEntryValue | null) {
-    if (!date) return null;
-    const [y, m, d] = String(date).split("-");
-    return `${d}/${m}/${y}`;
+function formatMesAno(value: FormDataEntryValue | null) {
+    if (!value) return null;
+    const [year, month] = String(value).split("-");
+    return `${month}/${year}`;
 }
 
-export default function MovimentoDiario({ onSuccess, onStatusChange }: MovimentoDiarioFormProps) {
+export default function MovimentoMensal({ onSuccess, onStatusChange }: MovimentoMensalFormProps) {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -33,29 +33,31 @@ export default function MovimentoDiario({ onSuccess, onStatusChange }: Movimento
         const payload = {
             token: cenprotToken,
             movimento: {
-                data: formatDate(formData.get("movimento_data")),
-                completa: null,
+                mes: formatMesAno(formData.get("movimento_mes")),
+                completa: "S",
                 status: statusSelecionado || null,
             }
         };
 
-        const resp = await fetch("/api/cenprot/movimento-diario", {
+        const resp = await fetch("/api/cenprot/movimento-mensal", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
 
         const data = await resp.json();
+
         try {
-            validateCenprotResponse(data); 
+            validateCenprotResponse(data);
         } catch (err: any) {
-            alert(err.message || "Erro ao consultar movimento diário");
+            alert(err.message || "Erro ao consultar movimento mensal");
             return;
         }
 
-        onSuccess(data.payload.movimento);
+        onSuccess(data.payload);
         form.reset();
     }
+
 
 
     return (
@@ -64,9 +66,14 @@ export default function MovimentoDiario({ onSuccess, onStatusChange }: Movimento
                 <div className="form-grid">
 
                     <div className="form-group half-width">
-                        <label className="form-label">Data
-                            do Arquivo:<br />
-                            <input className="input-field" type="date" name="movimento_data" required />
+                        <label className="form-label">
+                            Mês de Referência:<br />
+                            <input
+                                className="input-field"
+                                type="month"
+                                name="movimento_mes"
+                                required
+                            />
                         </label>
                     </div>
 

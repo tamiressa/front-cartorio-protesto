@@ -33,14 +33,19 @@ export default function MenuPage() {
       icon: "📂" 
     },
     { 
+      title: "Operação Título", 
+      href: "/pages/operacaoTitulo", 
+      icon: "🔨" 
+    },
+    { 
       title: "Movimento Diário", 
       href: "/pages/movimento", 
       icon: "📊" 
     },
     { 
-      title: "Operação Título", 
-      href: "/pages/operacaoTitulo", 
-      icon: "🔨" 
+      title: "Movimento Mensal", 
+      href: "/pages/movimentoMensal", 
+      icon: "📅" 
     },
   ];
 
