@@ -21,11 +21,13 @@ function timestamp() {
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const jwt = cookies().get(JWT_COOKIE_NAME)?.value;    
+  const cookieStore = await cookies();
 
-  console.log(`[${timestamp()}] JWT dentro do container:`, jwt);
+  const appToken = cookieStore.get(JWT_COOKIE_NAME)?.value;  
 
-  if (!jwt) {
+  console.log(`[${timestamp()}] JWT dentro do container:`, appToken);
+
+  if (!appToken) {
     return new Response(
       JSON.stringify({ detail: "Usuário não autenticado" }),
       { status: 401 }
@@ -38,7 +40,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`,
+        Authorization: `Bearer ${appToken}`,
       },
       body: JSON.stringify(body),
     }
@@ -66,7 +68,7 @@ export async function POST(req: Request) {
 
   const cred = data.payload.credenciais;
 
-  cookies().set("CENPROT_TOKEN", cred.token, {
+  cookieStore.set("CENPROT_TOKEN", cred.token, {
     httpOnly: true,
     secure: process.env.COOKIE_SECURE === "true",
     sameSite: "lax",

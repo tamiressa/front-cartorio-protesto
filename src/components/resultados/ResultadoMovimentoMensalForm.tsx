@@ -1,9 +1,13 @@
+import { DataTable } from "@/components/ui/data-table";
+import { columns } from "./columns";
+
 type Props = {
   data: any;
   status?: string;
 };
 
 export default function ResultadoMovimentoMensal({ data, status }: Props) {
+
   if (!data || !data.movimento?.length) {
     return <p>Nenhum movimento encontrado para o mês informado.</p>;
   }
@@ -22,24 +26,29 @@ export default function ResultadoMovimentoMensal({ data, status }: Props) {
     return <p>Nenhum movimento encontrado para o status selecionado.</p>;
   }
 
+  const titulosTabela = titulosFiltrados.map((t: any) => ({
+    devedor: t.devedor.nome,
+    documento: t.devedor.documento,
+    numero: t.divida.numero,
+    nossoNumero: t.divida.nossoNumero,
+    vencimento: t.divida.vencimento,
+    status: t.ocorrencia?.status,
+    mensagem: t.ocorrencia?.mensagem,
+  }));
+
   return (
-    <div>
+    <div >
+
       <div className="card-form" style={{ marginBottom: "20px" }}>
         <p><strong>Mês/Ano:</strong> {data.mes}</p>
-        <p><strong>Total:</strong> {titulosFiltrados.length}</p>
+        <p><strong>Total:</strong> {titulosTabela.length}</p>
       </div>
 
-      {titulosFiltrados.map((t: any, idx: number) => (
-        <div key={idx} className="card-form" style={{ marginBottom: "16px" }}>
-          <p><strong>Devedor:</strong> {t.devedor.nome}</p>
-          <p><strong>Documento:</strong> {t.devedor.documento}</p>
-          <p><strong>Número:</strong> {t.divida.numero}</p>
-          <p><strong>Nosso número:</strong> {t.divida.nossoNumero}</p>
-          <p><strong>Vencimento:</strong> {t.divida.vencimento}</p>
-          <p><strong>Status:</strong> {t.ocorrencia?.status}</p>
-          <p><strong>Mensagem:</strong> {t.ocorrencia?.mensagem}</p>
-        </div>
-      ))}
+      <DataTable
+        columns={columns}
+        data={titulosTabela}
+      />
+
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { JWT_COOKIE_NAME } from "@/services/authService";
 
 export async function POST(req: Request) {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
 
     const appToken = cookieStore.get(JWT_COOKIE_NAME)?.value;
     const cenprotToken = cookieStore.get("CENPROT_TOKEN")?.value;

@@ -9,8 +9,8 @@ export default function MovimentoDiarioPage() {
   const [statusSelecionado, setStatusSelecionado] = useState<string>("");
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
-      <h2 style={{ marginBottom: "20px" }}>Movimento Diário</h2>
+    <div>
+      <h2 >Movimento Diário</h2>
 
       <section>
         <MovimentoMensalForm
@@ -20,7 +20,7 @@ export default function MovimentoDiarioPage() {
       </section>
 
       {resultado && (
-        <section style={{ marginTop: "30px" }}>
+        <section className="resultado-container">
           <ResultadoMovimentoMensal
             data={resultado}
             status={statusSelecionado}
