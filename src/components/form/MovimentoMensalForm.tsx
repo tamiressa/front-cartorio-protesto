@@ -29,14 +29,13 @@ export default function MovimentoMensal({ onSuccess, onStatusChange }: Movimento
         const cenprotToken = getCookie("CENPROT_TOKEN");
         const statusSelecionado = formData.get("movimento_status");
 
-
         const payload = {
             token: cenprotToken,
             movimento: {
                 mes: formatMesAno(formData.get("movimento_mes")),
                 completa: "S",
-                status: statusSelecionado || null,
-            }
+                status: statusSelecionado || "",
+            },
         };
 
         const resp = await fetch("/api/cenprot/movimento-mensal", {
@@ -98,6 +97,8 @@ export default function MovimentoMensal({ onSuccess, onStatusChange }: Movimento
                                 <option value="RETIRADO">RETIRADO</option>
                                 <option value="SUSTADO">SUSTADO</option>
                                 <option value="SUSPENSO">SUSPENSO</option>
+                                <option value="REPROVADO">REPROVADO</option>
+
                             </select>
                         </label>
                     </div>
