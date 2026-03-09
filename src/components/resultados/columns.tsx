@@ -34,6 +34,16 @@ export const columns: ColumnDef<Titulo>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ row }) => {
+
+      const status = (row.getValue("status") as string)?.toLowerCase()
+
+      return (
+        <span className={`status-badge status-${status}`}>
+          {row.getValue("status")}
+        </span>
+      )
+    }
   },
   {
     accessorKey: "mensagem",

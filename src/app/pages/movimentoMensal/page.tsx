@@ -10,7 +10,7 @@ export default function MovimentoDiarioPage() {
 
   return (
     <div>
-      <h2 >Movimento Diário</h2>
+      <h2 >Movimento Mensal</h2>
 
       <section>
         <MovimentoMensalForm

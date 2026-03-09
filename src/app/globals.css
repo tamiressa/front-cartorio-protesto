@@ -376,6 +376,88 @@ body {
   color:#999;
 }
 
+
+/* base da badge */
+
+.status-badge{
+  display:inline-block;
+  min-width:90px;
+  text-align:center;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+/* estados neutros */
+
+.status-inexistente{
+  background:#e5e7eb;
+}
+
+.status-coletado{
+  background:#d9f99d;
+}
+
+.status-gerado{
+  background:#bbf7d0;
+}
+
+.status-agendado{
+  background:#bfdbfe;
+}
+
+/* envio */
+
+.status-enviado{
+  background:#93c5fd;
+}
+
+.status-confirmado{
+  background:#67e8f9;
+}
+
+/* finais */
+
+.status-pago{
+  background:#86efac;
+}
+
+.status-protestado{
+  background:#fde68a;
+}
+
+.status-retirado{
+  background:#c4b5fd;
+}
+
+/* interrupção */
+
+.status-cancelado{
+  background:#f9a8d4;
+}
+
+.status-devolvido{
+  background:#fcd34d;
+}
+
+.status-sustado{
+  background:#e9d5ff;
+}
+
+.status-suspenso{
+  background:#ddd6fe;
+}
+
+/* erro */
+
+.status-reprovado{
+  background:#fca5a5;
+}
+
+/* fallback */
+
+.status-default{
+  background:#e5e7eb;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
